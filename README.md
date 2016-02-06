@@ -1,0 +1,2 @@
+# LabelScan
+QR code generation
