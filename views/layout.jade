@@ -1,0 +1,19 @@
+doctype html
+html
+	head
+		title= title
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
+	body
+		block content
+		script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
+		script(src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
+		form.form-signin(action="/login", method="post", class="form-inline")
+			div.form-group
+				h4.form-signin-heading Sign In
+				input.input-block-level(type="text", name="username", class="form-control" placeholder="Email address")
+				br
+				input.input-block-level(type="password", name="password", class="form-control" placeholder="Password")
+				br
+				button.btn.btn-large.btn-primary(type="submit", class="btn btn-default") Sign in

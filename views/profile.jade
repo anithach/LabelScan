@@ -1,0 +1,40 @@
+include menu
+
+doctype html
+html
+	head
+		title= title		
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		|	<script type='text/javascript'>
+		|	$(document).ready(function() {		
+		|		$('#potable').DataTable( {
+		|		responsive: {
+		|		details: {
+		|		display: $.fn.dataTable.Responsive.display.childRowImmediate,
+		|		type: ''
+		|		}
+		|		}
+		|	} );
+		|	});
+		|	</script>		
+	body
+		div.container				
+			br
+			br
+			table(id="potable",class="table table-striped table-hover table-bordered")
+				thead
+					tr
+						th PO Number
+						th Product Code
+						th Production Date
+						th Vendor
+						th Country of Origin
+				each po in podocs
+					tr
+						td #{po.ponumber}
+						td #{po.prodcode}
+						td #{po.proddate}
+						td #{po.vendor}
+						td #{po.countryoforigin}	
+						
+																														

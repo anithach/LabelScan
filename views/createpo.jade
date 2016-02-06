@@ -1,0 +1,96 @@
+include menu
+
+doctype html
+html
+	head		
+	body
+		div.container				
+			<br>
+			<br>
+			h3 Welcome User, Create Your Purchase Order to generate a unique QRCode.
+			<br>
+			form(role='form', action="/createpo",method="post")
+				div.panel.panel-primary
+					div.panel-heading
+						h3.panel-title Create Your Purchase Order											
+					div.panel-body
+						div.form-group
+							div.row
+								div.col-xs-6
+									label.col-xs-4 Company Name
+									div.row
+										div.col-xs-8 
+											input.form-control(type='text', name="name", placeholder='Enter Company name')
+								div.col-xs-6
+									label.col-xs-4 Email Address
+									div.row
+										div.col-xs-8 
+											input.form-control(type='text', name="email", placeholder='Enter Email Address')
+					
+						div.form-group
+							div.row
+								div.col-xs-6
+									label.col-xs-4 Purchase Order No
+									div.row
+										div.col-xs-8 
+											input.form-control(type='text', name="ponumber", placeholder='Enter Purchase Order Number')
+								div.col-xs-6
+									label.col-xs-4 Production Code
+									div.row
+										div.col-xs-8 
+											input.form-control(type='text', name="prodcode", placeholder='Enter Production Code')
+						div.form-group
+							div.row
+								div.col-xs-6
+									label.col-xs-4 Production Date
+									div.row
+										div.col-xs-8 
+											input.form-control(type='text', name="proddate", placeholder='Enter Production Date')
+								div.col-xs-6
+									label.col-xs-4 Customer Name
+									div.row
+										div.col-xs-8 
+											input.form-control(type='text', name="vendor", placeholder='Enter Customer Name')
+						div.form-group
+							div.row
+								div.col-xs-6
+									label.col-xs-4 FDA Registration No
+									div.row
+										div.col-xs-8 
+											input.form-control(type='text', name="fdaregno", placeholder='FDA Registration Number')
+								div.col-xs-6
+									label.col-xs-4 Tracebility ID
+									div.row
+										div.col-xs-8 
+											input.form-control(type='text', name="tracebilityid", placeholder='Enter Tracebility ID')
+						div.form-group
+							div.row
+								div.col-xs-6
+									label.col-xs-4 Product Type
+									div.row
+										div.col-xs-8 
+											input.form-control(type='text', name="producttype", placeholder='Enter Product Type')
+								div.col-xs-6
+									label.col-xs-4 Product Weight
+									div.row
+										div.col-xs-8 
+											input.form-control(type='text', name="productweight", placeholder='Enter Product Weight')											
+						div.form-group
+							div.row
+								div.col-xs-6
+									label  Number of Items per Pound
+									div.row
+										div.col-xs-8
+											input.form-control(type='text', name="itemperpound", placeholder='Enter Number of Items per Pound')
+											
+						div.form-group		
+							div.row
+								div.col-xs-8
+									div.col-xs-2
+										button.btn.btn-default(type='submit') Submit		
+									div.col-xs-2
+										a(href='/')
+											button.btn.btn-primary(type="button") Cancel
+										if(typeof msg !== 'undefined')
+
+																														

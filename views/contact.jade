@@ -1,0 +1,63 @@
+include menu
+
+doctype html
+html
+	head
+		title= title	
+	body
+	block content
+		.container
+			br
+			br
+			form(role='form', action="/contact",method="post")
+				div.panel.panel-primary
+					div.panel-heading
+						h3.panel-title Contact us
+					div.panel-body
+						div.col
+							img.img-responsive(src="img/ContactUs.png")						
+						div.col
+							div.form-group
+								div.row
+									div.col-xs-6
+										label.col-xs-4 Name
+										div.row
+											div.col-xs-8 
+												input.form-control(type='text', name="firstname", placeholder='Enter First Name')
+							div.form-group
+								div.row
+									div.col-xs-6
+										label.col-xs-4 Email Address
+										div.row
+											div.col-xs-8 
+												input.form-control(type='text', name="emailaddress", placeholder='Enter Email')
+							div.form-group
+								div.row
+									div.col-xs-6
+										label.col-xs-4 Phone
+										div.row
+											div.col-xs-8 
+												input.form-control(type='text', name="phone", placeholder='Phone')
+							div.form-group
+								div.row
+									div.col-xs-8
+										label  Subject
+										div.row
+											div.col-xs-12
+												textarea(rows = '2',cols = '40', name ='subject',  id = 'message' ) 
+							div.form-group
+								div.row
+									div.col-xs-8
+										label  Message
+										div.row
+											div.col-xs-12
+												textarea(rows = '5',cols = '40', name ='subject',  id = 'message' ) 											
+												
+							div.form-group		
+								div.row
+									div.col-xs-8
+										div.col-xs-2
+											button.btn.btn-default(type='submit') Send Message		
+			
+			
+					

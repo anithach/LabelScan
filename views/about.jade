@@ -1,0 +1,19 @@
+include menu
+
+doctype html
+html
+	head
+		title= title	
+	body
+		block content
+		.container
+			if(!!err)
+				div(class='msgbox err') #{msg}
+			else
+				div(class='msgbox success') #{msg}		
+		div.container-fluid
+			br
+			br
+			div.row
+				img.img-responsive(src="img/farmtofork.jpg")					
+include footer

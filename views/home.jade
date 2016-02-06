@@ -1,0 +1,19 @@
+include menu
+
+doctype html
+html
+	head
+		title= title
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')		
+	body
+		block content
+		.container
+			if(!!err)
+				div(class='msgbox err') #{msg}
+			else
+				div(class='msgbox success') #{msg}		
+		div.container-fluid
+			h2 Welcome to Label Docs
+			div.row
+				img.img-responsive(src="img/header.jpg")					
+include footer

@@ -1,0 +1,19 @@
+{
+  "name": "datalab2",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node apps/server.js"
+  },
+  "dependencies": {
+    "async": "^1.5.2",
+    "bcrypt-nodejs": "0.0.3",
+    "connect-flash": "*",
+    "express": "3.2.6",
+    "jade": "*",
+    "mongoose": "*",
+    "nodemailer": "^0.7.1",
+    "passport": "*",
+    "passport-local": "*"
+  }
+}

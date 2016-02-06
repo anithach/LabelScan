@@ -1,0 +1,109 @@
+include menu
+
+doctype html
+html
+	head
+		title= title
+		script( src="bower_components/jquery-qrcode/jquery.qrcode.min.js")
+		script( src="bower_components/pick-a-color/build/1.2.3/js/pick-a-color-1.2.3.min.js")
+		script( src="bower_components/tinycolor/tinycolor.js")							
+		<link href="bower_components/pick-a-color/build/1.2.3/css/pick-a-color-1.2.3.min.css" rel="stylesheet">
+		<link href="bower_components/pick-a-color/build/1.2.3/css/pick-a-color-1.2.3.min.css" rel="stylesheet">
+		|<script type='text/javascript'>
+		|	$(document).ready(function() {
+		|		$('.color-picker').pickAColor({
+		|			showSpectrum            : true,
+		|			showAdvanced            : false,
+		|			showSavedColors         : false,
+		|			saveColorsPerElement    : false,
+		|			fadeMenuToggle          : true,
+		|			showHexInput            : true,
+		|			showBasicColors         : true,
+		|			allowBlank              : false,
+		|			inlineDropdown          : false
+		|		});		
+		|		$("#qrcodeGenBtn").click(function () {
+		|			$('#qrcodeholder canvas').remove();
+		|			var foreGroundVal =  '#'+$('#foreGroundVal').val();	
+		|			var backGroundVal =  '#'+$('#backGroundVal').val();		
+		|			var qrCodeWidth = '150';
+		|			var qrCodeHeight = '150';
+		|			var imageSizeVal = $( "#imageSize" ).val();	
+		|			if(imageSizeVal === 'medium'){		
+		|				qrCodeWidth = '250';
+		|				qrCodeHeight = '250';
+		|			}else if(imageSizeVal === 'large'){
+		|				qrCodeWidth = '350';
+		|				qrCodeHeight = '350';
+		|			}
+		|			//QRcode generation for div qrcodeholder							
+		|			$('#qrcodeholder').qrcode({
+		|				text	: "12345678",
+		|				render	: "canvas",  // 'canvas' or 'table'. Default value is 'canvas'
+		|				background : backGroundVal,
+		|				foreground : foreGroundVal,
+		|				width : qrCodeWidth,
+		|				height: qrCodeHeight
+		|			});
+		|		});
+		|		//Download QR code image on qrcodeDwnLdBtn click		
+		|		$("#qrcodeDwnLdBtn").click(function () {
+		|			var canvas = $('#qrcodeholder canvas');
+		|			var img = canvas.get(0).toDataURL("image/png");		
+		|			var dl = document.createElement('a');
+		|	    	dl.setAttribute('href', img);
+		|	    	dl.setAttribute('download', 'qrcode.png');
+		|	    	// simulate a click will start download the image, and name is qrcode.png.
+		|	   	 dl.click();
+		|    	});		
+		|	});			
+		|</script>		
+	body
+			h2 Generate QR Code
+			br			
+			div.panel.panel-primary
+				div.panel-heading
+					h3.panel-title Generate QR Code
+				div.panel-body
+					div.form-group
+						div.row
+							div.col-xs-6
+								label.col-xs-4 Foreground Color
+								div.row
+									div.col-xs-8 
+										input#foreGroundVal.form-control.color-picker(type='text', name="foreGround", placeholder='Choose Foreground Color')
+							div.col-xs-6
+								label.col-xs-4 Background Color
+								div.row
+									div.col-xs-8 
+										input#backGroundVal.form-control.color-picker(type='text', name="background",  value="ffffff" placeholder='Choose Background Color')
+					div.form-group
+						div.row
+							div.col-xs-6
+								label.col-xs-4 QR Code Size
+								div.row
+									div.col-xs-8 
+										select#imageSize.form-control 
+											option(value='') Select Image size
+											option(value='small') Small
+											option(value='medium') Medium
+											option(value='large') Large	
+					div.form-group		
+						div.row
+							div.col-xs-8
+								div.col-xs-2									
+									button#qrcodeGenBtn.btn.btn-info.btn-md(type="button" data-toggle="modal" data-target="#qrCodeModal") Generate QR Code																																												
+	div#qrCodeModal.modal.fade(role="dialog")
+		div.modal-dialog
+			div.modal-content
+				div.modal-header
+					button.btn.close(type="button" data-toggle="modal" data-dismiss="modal") &times
+					h4 Your QR Code Image
+				div.modal-body
+					div#qrcodeholder.cust_center
+					br
+					br
+					button#qrcodeDwnLdBtn.btn.btn-info.btn-sm.center-block(type="button") Download QR Code
+				div.modal-footer
+					button.btn.btn-default(type="button" data-dismiss="modal") Close
+																												

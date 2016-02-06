@@ -1,0 +1,34 @@
+include menu
+
+doctype html
+html
+	head
+		title= title
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')		
+	body
+	block content
+		.container
+			h2 Reset Password
+			br
+			form(role='form', method="post")
+				div.panel.panel-primary
+					div.panel-heading
+						h3.panel-title Reset Your Password
+					div.panel-body
+						div.form-group
+							div.row
+								div.col-xs-6
+									label.col-xs-4 Reset Password
+									div.row
+										div.col-xs-8 
+											input.input-block-level(type="password", name="password", class="form-control" placeholder="Password")
+						div.form-group
+							div.row
+								div.col-xs-6
+									div.row
+										div.col-xs-4
+											button.btn.btn-large.btn-primary(type="submit", class="btn btn-default") Reset
+										div.col-xs-4
+
+
+
