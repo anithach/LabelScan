@@ -2,7 +2,7 @@ include menu
 
 doctype html
 html
-	head		
+	head
 	body
 		div.container				
 			<br>
@@ -13,20 +13,7 @@ html
 				div.panel.panel-primary
 					div.panel-heading
 						h3.panel-title Create Your Purchase Order											
-					div.panel-body
-						div.form-group
-							div.row
-								div.col-xs-6
-									label.col-xs-4 Company Name
-									div.row
-										div.col-xs-8 
-											input.form-control(type='text', name="name", placeholder='Enter Company name')
-								div.col-xs-6
-									label.col-xs-4 Email Address
-									div.row
-										div.col-xs-8 
-											input.form-control(type='text', name="email", placeholder='Enter Email Address')
-					
+					div.panel-body					
 						div.form-group
 							div.row
 								div.col-xs-6
@@ -85,12 +72,10 @@ html
 											
 						div.form-group		
 							div.row
-								div.col-xs-8
-									div.col-xs-2
-										button.btn.btn-default(type='submit') Submit		
-									div.col-xs-2
+								div.col-xs-1
+										button.btn.btn-primary(type='submit') Submit
+								div.col-xs-1
 										a(href='/')
 											button.btn.btn-primary(type="button") Cancel
-										if(typeof msg !== 'undefined')
-
-																														
+										if(typeof msg !== 'undefined')										
+include footer																														

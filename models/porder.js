@@ -15,7 +15,9 @@ var poSchema = new Schema(
 			tracebilityid : String,
 			producttype : String,
 			productweight : String,
-			itemperpound : String		
+			itemperpound : String,
+			qrcode : String,
+			username : String
 		});
 
 poSchema.set('collection', 'purchaseOrders');

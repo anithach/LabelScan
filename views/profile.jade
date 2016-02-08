@@ -5,8 +5,13 @@ html
 	head
 		title= title		
 		meta(name='viewport', content='width=device-width, initial-scale=1.0')
-		|	<script type='text/javascript'>
-		|	$(document).ready(function() {		
+		script( src="bower_components/jquery-qrcode/jquery.qrcode.min.js")
+		script( src="bower_components/pick-a-color/build/1.2.3/js/pick-a-color-1.2.3.min.js")
+		script( src="bower_components/tinycolor/tinycolor.js")							
+		<link href="bower_components/pick-a-color/build/1.2.3/css/pick-a-color-1.2.3.min.css" rel="stylesheet">
+		<link href="bower_components/pick-a-color/build/1.2.3/css/pick-a-color-1.2.3.min.css" rel="stylesheet">
+		|<script type='text/javascript'>
+		|	$(document).ready(function() {
 		|		$('#potable').DataTable( {
 		|		responsive: {
 		|		details: {
@@ -14,9 +19,53 @@ html
 		|		type: ''
 		|		}
 		|		}
-		|	} );
-		|	});
-		|	</script>		
+		|	} );		
+		|	myQRCode = document.getElementById("qrocde");
+		|		$('.color-picker').pickAColor({
+		|			showSpectrum            : true,
+		|			showAdvanced            : false,
+		|			showSavedColors         : false,
+		|			saveColorsPerElement    : false,
+		|			fadeMenuToggle          : true,
+		|			showHexInput            : true,
+		|			showBasicColors         : true,
+		|			allowBlank              : false,
+		|			inlineDropdown          : false
+		|		});		
+		|		$("#qrcodeGenBtn").click(function () {
+		|			$('#qrcodeholder canvas').remove();		
+		|			var qrCodeWidth = '150';
+		|			var qrCodeHeight = '150';
+		|			var imageSizeVal = $( "#imageSize" ).val();	
+		|			if(imageSizeVal === 'medium'){		
+		|				qrCodeWidth = '250';
+		|				qrCodeHeight = '250';
+		|			}else if(imageSizeVal === 'large'){
+		|				qrCodeWidth = '350';
+		|				qrCodeHeight = '350';
+		|			}
+		|			//QRcode generation for div qrcodeholder							
+		|			$('#qrcodeholder').qrcode({
+		|				text	: myQRCode.innerHTML,
+		|				render	: "canvas",  // 'canvas' or 'table'. Default value is 'canvas'
+		|				background : "#000000",
+		|				foreground : "#ffffff",
+		|				width : qrCodeWidth,
+		|				height: qrCodeHeight
+		|			});
+		|		});
+		|		//Download QR code image on qrcodeDwnLdBtn click		
+		|		$("#qrcodeDwnLdBtn").click(function () {
+		|			var canvas = $('#qrcodeholder canvas');
+		|			var img = canvas.get(0).toDataURL("image/png");		
+		|			var dl = document.createElement('a');
+		|	    	dl.setAttribute('href', img);
+		|	    	dl.setAttribute('download', 'qrcode.png');
+		|	    	// simulate a click will start download the image, and name is qrcode.png.
+		|	   	 dl.click();
+		|    	});		
+		|	});			
+		|</script>		
 	body
 		div.container				
 			br
@@ -29,12 +78,29 @@ html
 						th Production Date
 						th Vendor
 						th Country of Origin
+						th QR Code
 				each po in podocs
 					tr
 						td #{po.ponumber}
 						td #{po.prodcode}
 						td #{po.proddate}
 						td #{po.vendor}
-						td #{po.countryoforigin}	
-						
-																														
+						td #{po.countryoforigin}
+						td 
+							button#qrcodeGenBtn.btn.btn-info.btn-sm(type="button" data-toggle="modal" data-target="#qrCodeModal") View QR Code
+							div#qrCodeModal.modal.fade(role="dialog")
+								div.modal-dialog
+									div.modal-content
+										div.modal-header
+											button.btn.close(type="button" data-toggle="modal" data-dismiss="modal") &times
+											h4 Your QR Code Image
+										div.modal-body
+											div#qrcodeholder.cust_center 
+											div#qrocde(style="display: none;") #{po.qrcode}
+											br
+											br
+											button#qrcodeDwnLdBtn.btn.btn-info.btn-sm.center-block(type="button") Download QR Code
+										div.modal-footer
+											button.btn.btn-default(type="button" data-dismiss="modal") Close						
+												
+include footer.jade																									

@@ -3,40 +3,35 @@
  */
 var nodemailer = require('nodemailer');
 var User = require('../models/user');
+var uuid = require('node-uuid');
 module.exports = function(app, passport) 
 {
+	
+	app.get('*', function(req, res, next) {
+		  // just use boolean for loggedIn
+		  res.locals.loggedIn = (req.user) ? true : false;
+
+		  next();
+	});
+	
 	app.get('/', function(req, res) 
 	{
 		res.render('login.jade', { title: 'Intre Label Docs' });
 	});
 	
-	app.get('/login', function(req, res) 
+	app.get('/home', function(req, res) 
 			{
-				res.render('login.jade', { title: 'Intre Label Docs' });
-			});	
-	
-	app.get('/home', isLoggedIn, function(req, res) 
-			{
-				res.render('home.jade', 
-						{
-							user : req.user
-						});
+				res.render('home.jade');
 	});	
 	
-	app.get('/contact', isLoggedIn, function(req, res) 
+	app.get('/contact', function(req, res) 
 			{
-				res.render('contact.jade', 
-						{
-							user : req.user
-						});
+				res.render('contact.jade');
 	});	
 	
-	app.get('/about', isLoggedIn, function(req, res) 
+	app.get('/about', function(req, res) 
 			{
-				res.render('about.jade', 
-						{
-							user : req.user
-						});
+				res.render('about.jade');
 	});		
 
 	app.get('/login', function(req, res) 
@@ -50,18 +45,10 @@ module.exports = function(app, passport)
 		failureRedirect : '/login',
 		failureFlash : true
 	}));
-	
-	app.get('/profile', isLoggedIn, function(req, res) 
-			{
-				res.render('profile.jade', 
-						{
-							user : req.user
-						});
-	});		
 		
-	
 	app.post('/createpo', function(req, res) {
 		var PO = require('../models/porder');
+		var qrocdeUniqId = uuid.v1();
 		var newPO = new PO();
 		newPO.ponumber = req.body.ponumber;
 		newPO.prodcode = req.body.prodcode;
@@ -73,21 +60,23 @@ module.exports = function(app, passport)
 		newPO.producttype = req.body.producttype;
 		newPO.productweight = req.body.productweight;
 		newPO.itemperpound = req.body.itemperpound;
-		
+		newPO.qrcode = qrocdeUniqId;
+		newPO.username = req.user.username;
 		
 		newPO.save(function(err) 
 				{
                     if (err)
                     	{
-                        	console.log(err);
-                        	res.render('home.jade', 
+                        	console.log(err);                        	
+                        	res.render('createpo.jade', 
             						{
             							user : req.user
             						});
                     	}else{
-                    		res.render('profile.jade', 
+                    		res.render('qrcode.jade', 
             						{
-            							user : req.user
+            							user : req.use,
+            							qrcode : qrocdeUniqId            							
             						});
                     	}
                 });
@@ -113,11 +102,13 @@ module.exports = function(app, passport)
 	
 	app.get('/register', function(req, res) 
 	{
+		res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 		res.render('register.jade', { message: req.flash('registerMessage') });
 	});
 	
 	app.post('/register', passport.authenticate('local-register', 
 			{
+		
 				successRedirect : '/register_done',
 				failureRedirect : '/register_notdone',
 				failureFlash : true
@@ -134,10 +125,9 @@ module.exports = function(app, passport)
 	});
 	
 	app.get('/profile', isLoggedIn, function(req, res) 
-			{	
-				res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+			{					
 				var PO = require('../models/porder');
-				PO.find({}, function(err, result) 
+				PO.find({username:req.user.username}, function(err, result) 
 						 {
 						      if (!err) 
 						      {
@@ -177,7 +167,7 @@ module.exports = function(app, passport)
 		      User.findOne({ emailaddress: req.body.emailaddress }, function(err, user) {
 		        if (!user) {
 		          req.flash('error', 'No account with that email address exists.');
-		          return  res.render('home', { title: 'Test email- Contact', msg: 'No account with that email address exists.'+err, err: true, page: 'home' });
+		          return  res.render('home', { title: 'Test email- Contact', msg: 'No account with that'+emailaddress+ 'address exists.'+err, err: true, page: 'home' });
 		        }
 
 		        user.resetPasswordToken = token;
@@ -193,13 +183,13 @@ module.exports = function(app, passport)
 				smtpTrans = nodemailer.createTransport('SMTP', {
 				      service: 'Gmail',
 				      auth: {
-				          user: "raksapp.user@gmail.com",
-				          pass: "raks_pwd" 
+				          user: "raksapp6@gmail.com",
+				          pass: "Useit4good" 
 				      }
 				  });				
 				  //Mail options
 				  mailOpts = {
-				      from: 'raksapp.user@gmail.com', //grab form data from the request body object
+				      from: 'raksapp6@gmail.com', //grab form data from the request body object
 				      to: req.body.emailaddress,
 				      subject: 'Password Reset',
 				        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
@@ -208,13 +198,12 @@ module.exports = function(app, passport)
 				          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
 				  };
 				  smtpTrans.sendMail(mailOpts, function(err) {
-				      //Email not sent
+				      //Email sent
 				      if (!err) {
 				    	  res.render('login', { title: 'Test email- Contact', msg: 'An e-mail has been sent to ' + user.emailaddress + ' with further instructions.', err: true, page: 'login' });
-				      }
-				      //Yay!! Email sent
+				      }//Email not sent
 				      else {
-				          res.render('login', { title: 'Reste not done', err: false, page: 'login' });
+				          res.render('login', { title: 'Reste not done', err: false,msg: 'No account with that email address '+user.emailaddress+' exists.'+err, page: 'login' });
 				      }					  					 
 		      });
 		    }
@@ -239,7 +228,7 @@ module.exports = function(app, passport)
 		      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
 		        if (!user) {
 		          req.flash('error', 'Password reset token is invalid or has expired.');
-		          return res.redirect('home');
+		          return res.render('login', { title: 'Test email- Contact', msg: 'Password reset token is invalid or has expired.', err: true, page: 'login' });
 		        }
 
 		        user.password = req.body.password;
@@ -256,13 +245,13 @@ module.exports = function(app, passport)
 				smtpTrans = nodemailer.createTransport('SMTP', {
 				      service: 'Gmail',
 				      auth: {
-				          user: "raksapp.user@gmail.com",
-				          pass: "raks_pwd" 
+				          user: "raksapp6@gmail.com",
+				          pass: "Useit4good" 
 				      }
 				  });				
 				  //Mail options
 				  mailOpts = {
-				      from: 'raksapp.user@gmail.com', //grab form data from the request body object
+				      from: 'raksapp6@gmail.com', //grab form data from the request body object
 				      to: user.emailaddress,
 				      subject: 'Your password has been changed',
 				        text: 'Hello,\n\n' +

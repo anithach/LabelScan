@@ -11,6 +11,7 @@ html
 		<link href="bower_components/pick-a-color/build/1.2.3/css/pick-a-color-1.2.3.min.css" rel="stylesheet">
 		|<script type='text/javascript'>
 		|	$(document).ready(function() {
+		|	myQRCode = document.getElementById("qrocde");
 		|		$('.color-picker').pickAColor({
 		|			showSpectrum            : true,
 		|			showAdvanced            : false,
@@ -38,7 +39,7 @@ html
 		|			}
 		|			//QRcode generation for div qrcodeholder							
 		|			$('#qrcodeholder').qrcode({
-		|				text	: "12345678",
+		|				text	: myQRCode.innerHTML,
 		|				render	: "canvas",  // 'canvas' or 'table'. Default value is 'canvas'
 		|				background : backGroundVal,
 		|				foreground : foreGroundVal,
@@ -100,7 +101,8 @@ html
 					button.btn.close(type="button" data-toggle="modal" data-dismiss="modal") &times
 					h4 Your QR Code Image
 				div.modal-body
-					div#qrcodeholder.cust_center
+					div#qrcodeholder.cust_center 
+					div#qrocde(style="display: none;") #{qrcode}
 					br
 					br
 					button#qrcodeDwnLdBtn.btn.btn-info.btn-sm.center-block(type="button") Download QR Code

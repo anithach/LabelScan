@@ -16,26 +16,27 @@ html
 		script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
 		script( src='/bower_components/jquery-ui/jquery-ui.js' )				
 	body
-		div.container				
-			+nav("Label Docs", "dropdown_menu", "navbar-default navbar-fixed-top")
-				+nav_item( "/home" ) Home
-				+nav_item( "/about" ) About
-				+nav_item( "/contact" ) Contact
-				+nav_item( "/" ) Login
-				+nav_item_dropdown( "/purchase" , "active")( label="Purchase Orders")
-					+nav_item( "/createpo" ) Create
-					+nav_divider
-					+nav_item( "/profile" ) Assigned
-					+nav_item( "#" ) Inprogress
-					+nav_item( "#" ) Closed
-					+nav_item( "#" ) Archived
-				+nav_item( "/myinbox" ) Inbox
-				+nav_item( "/qrcode" ) QRCode
-				+nav_item( "/mysettings" ) Settings
-				+nav_item( "/help" ) Help
-				+nav_item( "/logout" ) Logout
-				+nav_item_logo("/myinbox", "cust_nav_logo xhidden-xs")
-					img(style="max-height: 80px; max-width: 60px;", src= "https://lh3.googleusercontent.com/-cA2ApLfNnUQ/AAAAAAAAAAI/AAAAAAAAGJw/DO5apNO5qpc/s100-c-k-no/photo.jpg")
-				+nav_item( "#" ) Welcome  	
-				br
-				br																										
+		div.container
+			if loggedIn
+				+nav("Label Docs", "dropdown_menu", "navbar-default navbar-fixed-top")
+					+nav_item( "/home" ) Home
+					+nav_item_dropdown( "/purchase" , "active")( label="Purchase Orders")
+						+nav_item( "/createpo" ) Create
+						+nav_divider
+						+nav_item( "/profile" ) Assigned
+						+nav_item( "#" ) Inprogress
+					+nav_item( "/contact" ) Help
+					+nav_item( "/logout" ) Logout
+					+nav_item_logo("/myinbox", "cust_nav_logo xhidden-xs")
+						img(style="max-height: 80px; max-width: 60px;", src= "https://lh3.googleusercontent.com/-cA2ApLfNnUQ/AAAAAAAAAAI/AAAAAAAAGJw/DO5apNO5qpc/s100-c-k-no/photo.jpg")
+					+nav_item( "#" ) Welcome
+			else
+				+nav("Label Docs", "dropdown_menu", "navbar-default navbar-fixed-top")
+					+nav_item( "/home" ) Home
+					+nav_item( "/about" ) About
+					+nav_item( "/contact" ) Contact Us
+					+nav_item( "/" ) Login
+
+					
+					br
+					br																										
