@@ -8,10 +8,16 @@ var bcrypt   = require('bcrypt-nodejs');
 var userSchema = mongoose.Schema({
     firstname: String,
     lastname: String,
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    username: { type: String, required: 'Username address is required', unique: true },
+    password: { type: String, required: 'Password address is required', },
     company: String,
-    emailaddress: { type: String, required: true, unique: true },
+    emailaddress: {
+        type: String,
+        trim: true,
+        unique: 'This email is already registered, please use a different email address',
+        required: 'Email address is required',       
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+    },
     logo: String,
     primaryPhone: String,
     secondaryPhone: String,
@@ -36,5 +42,7 @@ userSchema.methods.validPassword = function(password)
 {
     return bcrypt.compareSync(password, this.password);
 };
+
+
 
 module.exports = mongoose.model('User', userSchema);

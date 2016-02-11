@@ -47,8 +47,22 @@ module.exports = function(passport)
 							{
 			                    if (err)
 			                    	{
-			                        	console.log(err);
-			                        	throw err;
+			                    	var message  = '';;
+			                    	if (err.code) {
+			                            switch (err.code) {
+			                                case 11000:
+			                                case 11001:
+			                                    message = 'Email address is already registered!';
+			                                    break;
+			                                default:
+			                                    message = 'Something went wrong';
+			                            }
+			                        } else {
+			                            for (var errName in err.errors) {
+			                                if (err.errors[errName].message) message = err.errors[errName].message;
+			                            }
+			                        }		                     
+		                        	return done(message);
 			                    	}
 			                    return done(null, newUser);
 			                });
