@@ -3,17 +3,21 @@ include menu
 doctype html
 html
 	head
-		title= title	
+		title= title
+		script( src="bower_components/jquery-validation/dist/jquery.validate.min.js")
+		script( src="js/register.js")
 	body
 	block content
 		.container
 			br
 			br
-			form(role='form', action="/register",method="post")
+			form#register-form(role='form', action="/register",method="post")
 				div.panel.panel-primary
 					div.panel-heading
 						h3.panel-title Create your Account
 					div.panel-body
+						div#errorContainer
+							ul							
 						div #{msg}
 						div.form-group
 							div.row

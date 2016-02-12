@@ -20,19 +20,13 @@ html
 			if loggedIn
 				+nav("Label Docs", "dropdown_menu", "navbar-default navbar-fixed-top")
 					+nav_item( "/home" ) Home
-					+nav_item_dropdown( "/purchase" , "active")( label="Purchase Orders")
-						+nav_item( "/createpo" ) Create
-						+nav_divider
-						+nav_item( "/profile" ) Assigned
-						+nav_item( "#" ) Inprogress
+					+nav_item( "/profile" ) PO Profile
+					+nav_item( "/createpo" ) Create PO 
 					+nav_item( "/contact" ) Help
 					+nav_item( "/logout" ) Logout
 					+nav_item_logo("/myinbox", "cust_nav_logo xhidden-xs")
-						img(style="max-height: 80px; max-width: 60px;", src= "https://lh3.googleusercontent.com/-cA2ApLfNnUQ/AAAAAAAAAAI/AAAAAAAAGJw/DO5apNO5qpc/s100-c-k-no/photo.jpg")
-					+nav_item( "#" ) Welcome
 			else
 				+nav("Label Docs", "dropdown_menu", "navbar-default navbar-fixed-top")
-					+nav_item( "/home" ) Home
 					+nav_item( "/about" ) About
 					+nav_item( "/contact" ) Contact Us
 					+nav_item( "/" ) Login

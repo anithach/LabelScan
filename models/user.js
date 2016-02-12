@@ -8,8 +8,8 @@ var bcrypt   = require('bcrypt-nodejs');
 var userSchema = mongoose.Schema({
     firstname: String,
     lastname: String,
-    username: { type: String, required: 'Username address is required', unique: true },
-    password: { type: String, required: 'Password address is required', },
+    username: String,
+    password: String,
     company: String,
     emailaddress: {
         type: String,
@@ -28,7 +28,9 @@ var userSchema = mongoose.Schema({
     postalCode: String,
     country: String,
     resetPasswordToken: String,
-    resetPasswordExpires: Date
+    resetPasswordExpires: Date,
+	create_dt : Date,
+	update_dt : Date
 });
 
 userSchema.set('collection', 'users');

@@ -53,3 +53,11 @@ a
     color: #00B7FF;
 }
 
+.error{
+    color: #FF2323;
+    font-weight: normal;
+}
+
+input.error {
+    border: 1px solid #FF2323;
+}

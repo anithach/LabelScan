@@ -52,7 +52,7 @@ module.exports = function(passport)
 			                            switch (err.code) {
 			                                case 11000:
 			                                case 11001:
-			                                    message = 'Email address is already registered!';
+			                                    message = 'This email is already registered, please use a different email address!';
 			                                    break;
 			                                default:
 			                                    message = 'Something went wrong';

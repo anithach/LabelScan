@@ -29,6 +29,28 @@ module.exports = function(app, passport)
 				res.render('contact.jade');
 	});	
 	
+	app.post('/contact', function(req, res) 
+	{
+		var Contact = require('../models/contact');
+		var newContact = new Contact();
+		newContact.name = req.body.name;
+		newContact.emailaddress = req.body.emailaddress;
+		newContact.subject = req.body.subject;
+		newContact.message = req.body.message;
+		newContact.submit_dt = Date.now();
+		newContact.save(function(err) 
+				{
+                    if (err)
+                    	{
+                        	console.log(err); 
+                        	res.render('contact', { title: 'Error', err: false,msg: 'Please try again!', page: 'contact' }); 
+                    	}else{
+                    		res.render('contact', { title: 'Thanks', err: false,msg: 'Thanks for contacting us, we will get back to you shortly!', page: 'contact' }); 
+                    	}
+                });
+		 
+	});	
+	
 	app.get('/about', function(req, res) 
 			{
 				res.render('about.jade');
@@ -46,7 +68,7 @@ module.exports = function(app, passport)
 		failureFlash : true
 	}));
 		
-	app.post('/createpo', function(req, res) {
+	app.post('/createpo', isLoggedIn, function(req, res) {	
 		var PO = require('../models/porder');
 		var qrocdeUniqId = uuid.v1();
 		var newPO = new PO();
@@ -61,23 +83,16 @@ module.exports = function(app, passport)
 		newPO.productweight = req.body.productweight;
 		newPO.itemperpound = req.body.itemperpound;
 		newPO.qrcode = qrocdeUniqId;
-		newPO.username = req.user.username;
-		
+		newPO.username = req.user.username;	
+		newPO.submit_dt = Date.now();
 		newPO.save(function(err) 
 				{
                     if (err)
                     	{
-                        	console.log(err);                        	
-                        	res.render('createpo.jade', 
-            						{
-            							user : req.user
-            						});
+                        	console.log(err); 
+                        	res.render('createpo', { title: 'error', err: false,msg: 'Error saving PO'+err, page: 'createpo' }); 
                     	}else{
-                    		res.render('qrcode.jade', 
-            						{
-            							user : req.use,
-            							qrcode : qrocdeUniqId            							
-            						});
+                    		res.render('qrcode', { title: 'QR COde', err: false,msg: 'QR Code', page: 'qrcode' }); 
                     	}
                 });
 	});
@@ -94,13 +109,14 @@ module.exports = function(app, passport)
 	
 	app.get('/qrcode', isLoggedIn, function(req, res) 
 			{
+		console.log("user - "+req.user);
 				res.render('qrcode.jade', 
 						{
 							user : req.user
 						});
 	});	
 	
-	app.get('/register', function(req, res) 
+	app.get('/register', isUserNotLoggedIn,function(req, res) 
 	{
 		res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 		res.render('register.jade', { message: req.flash('registerMessage') });
@@ -286,7 +302,7 @@ module.exports = function(app, passport)
 		          return res.render('login', { title: 'Test email- Contact', msg: 'Password reset token is invalid or has expired.', err: true, page: 'login' });
 		        }
 
-		        user.password = req.body.password;
+		        user.password = user.generateHash(req.body.password);
 		        user.resetPasswordToken = undefined;
 		        user.resetPasswordExpires = undefined;
 
@@ -330,6 +346,14 @@ module.exports = function(app, passport)
 function isLoggedIn(req, res, next) 
 {
 	if (req.isAuthenticated())
+		return next();
+
+	res.redirect('/');
+}
+
+function isUserNotLoggedIn(req, res, next) 
+{
+	if (!req.isAuthenticated())
 		return next();
 
 	res.redirect('/');

@@ -56,7 +56,10 @@ html
 		|	    	dl.setAttribute('download', 'qrcode.png');
 		|	    	// simulate a click will start download the image, and name is qrcode.png.
 		|	   	 dl.click();
-		|    	});		
+		|    	});
+		|		$('#qrCodeModal').on('hidden.bs.modal', function () {
+		|			$("#qrcode-form").submit();
+		|		});	
 		|	});			
 		|</script>		
 	body
@@ -66,6 +69,7 @@ html
 				div.panel-heading
 					h3.panel-title Generate QR Code
 				div.panel-body
+					div #{msg}
 					div.form-group
 						div.row
 							div.col-xs-6
@@ -107,5 +111,6 @@ html
 					br
 					button#qrcodeDwnLdBtn.btn.btn-info.btn-sm.center-block(type="button") Download QR Code
 				div.modal-footer
-					button.btn.btn-default(type="button" data-dismiss="modal") Close
+					form#qrcode-form(role='form', action="/profile",method="get")
+						button.btn.btn-default(type="submit" data-dismiss="modal") Close						
 																												

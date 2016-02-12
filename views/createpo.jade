@@ -3,17 +3,21 @@ include menu
 doctype html
 html
 	head
+		script( src="bower_components/jquery-validation/dist/jquery.validate.min.js")
+		script( src="js/createpo.js")
 	body
 		div.container				
 			<br>
 			<br>
-			h3 Welcome User, Create Your Purchase Order to generate a unique QRCode.
+			h3 Create Your Purchase Order to generate a unique QRCode.
 			<br>
-			form(role='form', action="/createpo",method="post")
+			form#create-po-form(role='form', action="/createpo",method="post")
 				div.panel.panel-primary
 					div.panel-heading
 						h3.panel-title Create Your Purchase Order											
-					div.panel-body					
+					div.panel-body
+						div#errorContainer
+							ul											
 						div.form-group
 							div.row
 								div.col-xs-6
@@ -37,7 +41,7 @@ html
 									label.col-xs-4 Customer Name
 									div.row
 										div.col-xs-8 
-											input.form-control(type='text', name="vendor", placeholder='Enter Customer Name')
+											input.form-control(type='text', name="vendor", placeholder='Enter Vendor Name')
 						div.form-group
 							div.row
 								div.col-xs-6

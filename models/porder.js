@@ -17,7 +17,8 @@ var poSchema = new Schema(
 			productweight : String,
 			itemperpound : String,
 			qrcode : String,
-			username : String
+			username : String,
+			submit_dt : Date
 		});
 
 poSchema.set('collection', 'purchaseOrders');
