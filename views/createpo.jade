@@ -17,31 +17,32 @@ html
 						h3.panel-title Create Your Purchase Order											
 					div.panel-body
 						div#errorContainer
-							ul											
+							ul
+						div#msg_info  #{msg}										
 						div.form-group
 							div.row
 								div.col-xs-6
-									label.col-xs-4 Purchase Order No
+									label.col-xs-6 Purchase Order Number
 									div.row
 										div.col-xs-8 
-											input.form-control(type='text', name="ponumber", placeholder='Enter Purchase Order Number')
-								div.col-xs-6
-									label.col-xs-4 Production Code
-									div.row
-										div.col-xs-8 
-											input.form-control(type='text', name="prodcode", placeholder='Enter Production Code')
-						div.form-group
-							div.row
+											input.form-control(type='text', name="ponum", placeholder='Enter Purchase Order Number')
 								div.col-xs-6
 									label.col-xs-4 Production Date
 									div.row
 										div.col-xs-8 
-											input.form-control(type='text', name="proddate", placeholder='Enter Production Date')
+											input.form-control(type='text', name="prod_date",id="datepicker", placeholder='Enter Production Code')
+						div.form-group
+							div.row
 								div.col-xs-6
-									label.col-xs-4 Customer Name
+									label.col-xs-4 Item
 									div.row
 										div.col-xs-8 
-											input.form-control(type='text', name="vendor", placeholder='Enter Vendor Name')
+											input.form-control(type='text', name="itemnum", placeholder='Enter Item')
+								div.col-xs-6
+									label.col-xs-4 Code
+									div.row
+										div.col-xs-8 
+											input.form-control(type='text', name="code", placeholder='Enter Code')
 						div.form-group
 							div.row
 								div.col-xs-6
@@ -53,7 +54,7 @@ html
 									label.col-xs-4 Tracebility ID
 									div.row
 										div.col-xs-8 
-											input.form-control(type='text', name="tracebilityid", placeholder='Enter Tracebility ID')
+											input.form-control(type='text', name="traceid", placeholder='Enter Tracebility ID')
 						div.form-group
 							div.row
 								div.col-xs-6
@@ -65,14 +66,31 @@ html
 									label.col-xs-4 Product Weight
 									div.row
 										div.col-xs-8 
-											input.form-control(type='text', name="productweight", placeholder='Enter Product Weight')											
+											input.form-control(type='text', name="productwgt", placeholder='Enter Product Weight')											
 						div.form-group
 							div.row
 								div.col-xs-6
-									label  Number of Items per Pound
+									label.col-xs-4 Packing
 									div.row
-										div.col-xs-8
-											input.form-control(type='text', name="itemperpound", placeholder='Enter Number of Items per Pound')
+										div.col-xs-8 
+											input.form-control(type='text', name="packing", placeholder='Enter Packing')
+								div.col-xs-6
+									label.col-xs-4 Country of Origin
+									div.row
+										div.col-xs-8 
+											input.form-control(type='text', name="corigin", placeholder='Country of Origin')											
+						div.form-group
+							div.row
+								div.col-xs-6
+									label.col-xs-4 Company Code
+									div.row
+										div.col-xs-8 
+											input.form-control(type='text', name="company", placeholder='Company Code')
+								div.col-xs-6
+									label.col-xs-4 Processor
+									div.row
+										div.col-xs-8 
+											input.form-control(type='text', name="processor", placeholder='Processor')											
 											
 						div.form-group		
 							div.row

@@ -22,16 +22,16 @@ module.exports = function(passport)
 	
 	passport.use('local-register', new LocalStrategy(
 				{
-					usernameField : 'username',
+					usernameField : 'emailaddress',
 			        passwordField : 'password',
 			        passReqToCallback : true
 				},
-				function(req, username, password, done) 
+				function(req, emailaddress, password, done) 
 				{
 					var newUser = new User();
 					newUser.firstname = req.body.firstname;
 					newUser.lastname = req.body.lastname;
-					newUser.username = username;
+					newUser.username = emailaddress;
 					newUser.password = newUser.generateHash(password);
 					newUser.company = req.body.company;
 					newUser.emailaddress = req.body.emailaddress;
@@ -72,13 +72,13 @@ module.exports = function(passport)
 	
 	passport.use('local-login', new LocalStrategy(
 			{
-				usernameField : 'username',
+				usernameField : 'emailaddress',
 		        passwordField : 'password',
 		        passReqToCallback : true
 			},
-			function(req, username, password, done) 
+			function(req, emailaddress, password, done) 
 			{
-				User.findOne({ 'username' :  username }, function(err, user) 
+				User.findOne({ 'username' :  emailaddress }, function(err, user) 
 				{
 					if (err)
 						{
@@ -92,7 +92,11 @@ module.exports = function(passport)
 						{
 		                	return done(null, false, req.flash('loginMessage', 'Wrong password.'));
 						}
-					
+					if (!user.actv_ind)
+					{						
+	                	return done(null, false, req.flash('loginMessage', 'User is not Active.'));
+					}
+					console.log("user.actv_ind -- "+user.actv_ind);
 					 return done(null, user);
 				});
 				

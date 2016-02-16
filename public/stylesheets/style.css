@@ -61,3 +61,14 @@ a
 input.error {
     border: 1px solid #FF2323;
 }
+
+td.details-control {
+    background: url('../img/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('../img/details_close.png') no-repeat center center;
+}
+.hide{
+	style="display: none;"
+}

@@ -30,7 +30,10 @@ var userSchema = mongoose.Schema({
     resetPasswordToken: String,
     resetPasswordExpires: Date,
 	create_dt : Date,
-	update_dt : Date
+	activateToken: String,
+	activateTokenExpires: Date,
+	update_dt : {type: Date, default: Date.now },
+	actv_ind : {type: Boolean, default: false }
 });
 
 userSchema.set('collection', 'users');

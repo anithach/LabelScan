@@ -6,19 +6,21 @@ var Schema = mongoose.Schema;
 
 var poSchema = new Schema(
 		{
-			ponumber : String,
-			prodcode : String,
-			proddate : String,
-			vendor   : String,
-			countryoforigin: String,
-			fdaregno : String,
-			tracebilityid : String,
+			ponum : String,
+			bqcode : String,
+			itemnum : String,
+			code   : Number,
+			fdaregno: Number,
+			traceid : Number,
+			productwgt : String,
 			producttype : String,
-			productweight : String,
-			itemperpound : String,
-			qrcode : String,
-			username : String,
-			submit_dt : Date
+			packing : String,
+			corigin : String,
+			company : String,
+			processor : String,
+			submit_date : Date,
+			prod_date : Date,
+			username : String
 		});
 
 poSchema.set('collection', 'purchaseOrders');

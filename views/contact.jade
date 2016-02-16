@@ -4,20 +4,24 @@ doctype html
 html
 	head
 		title= title	
+		script( src="bower_components/jquery-validation/dist/jquery.validate.min.js")
+		script( src="js/contact.js")		
 	body
 	block content
 		.container
 			br
 			br
-			form(role='form', action="/contact",method="post")
+			form#contact-form(role='form', action="/contact",method="post")
 				div.panel.panel-primary
 					div.panel-heading
 						h3.panel-title Contact us
-					div.panel-body						
+					div.panel-body											
 						div.col
 							img.img-responsive(src="img/ContactUs.png")
 						div.col
 							br
+							div#errorContainer
+							ul							
 							div#msg_info  #{msg}
 							br				
 						div.col
@@ -48,20 +52,20 @@ html
 										label  Subject
 										div.row
 											div.col-xs-12
-												textarea(rows = '2',cols = '40', name ='subject',  id = 'message' ) 
+												textarea(rows = '2',cols = '40', name ="subject" ) 
 							div.form-group
 								div.row
 									div.col-xs-8
 										label  Message
 										div.row
 											div.col-xs-12
-												textarea(rows = '5',cols = '40', name ='subject',  id = 'message' ) 											
+												textarea(rows = '5',cols = '40', name ="message" ) 											
 												
 							div.form-group		
 								div.row
 									div.col-xs-8
 										div.col-xs-2
-											button.btn.btn-default(type='submit') Send Message		
+											button.btn.btn-primary(type='submit') Send Message		
 			
 			
 					

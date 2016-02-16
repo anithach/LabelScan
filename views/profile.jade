@@ -3,8 +3,7 @@ include menu
 doctype html
 html
 	head
-		title= title		
-		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		title= title
 		script( src="bower_components/jquery-qrcode/jquery.qrcode.min.js")
 		script( src="bower_components/pick-a-color/build/1.2.3/js/pick-a-color-1.2.3.min.js")
 		script( src="bower_components/tinycolor/tinycolor.js")
@@ -15,40 +14,32 @@ html
 		div.container				
 			br
 			br
-			table(id="potable",class="table table-striped table-hover table-bordered")
+			table(id="example",class="table table-striped table-hover table-bordered")
 				thead
 					tr
+						th
 						th PO Number
 						th Submitted Date
 						th Product Code
 						th Production Date
-						th Vendor
+						th Company
 						th Country of Origin
 						th QR Code
-				each po in podocs
-					tr
-						td #{po.ponumber}
-						td #{po.submit_dt}
-						td #{po.prodcode}
-						td #{po.proddate}
-						td #{po.vendor}
-						td #{po.countryoforigin}
-						td 
-							button#qrcodeGenBtn.btn.btn-info.btn-sm(type="button" data-toggle="modal" data-target="#qrCodeModal") View QR Code
-							div#qrCodeModal.modal.fade(role="dialog")
-								div.modal-dialog
-									div.modal-content
-										div.modal-header
-											button.btn.close(type="button" data-toggle="modal" data-dismiss="modal") &times
-											h4 Your QR Code Image
-										div.modal-body
-											div#qrcodeholder.cust_center 
-											div#qrocde(style="display: none;") #{po.qrcode}
-											br
-											br
-											button#qrcodeDwnLdBtn.btn.btn-info.btn-sm.center-block(type="button") Download QR Code
-										div.modal-footer
-											button.btn.btn-default(type="button" data-dismiss="modal") Close						
+						div.form-group		
+	div#qrCodeModal.modal.fade(role="dialog")
+		div.modal-dialog
+			div.modal-content
+				div.modal-header
+					button.btn.close(type="button" data-toggle="modal" data-dismiss="modal") &times
+					h4 Your QR Code Image
+				div.modal-body
+					div#qrcodeholder.cust_center 
+					div.hide#bqcode
+					br
+					br
+					button#qrcodeDwnLdBtn.btn.btn-info.btn-sm.center-block(type="button") Download QR Code
+				div.modal-footer					
+						button.btn.btn-default(type="submit" data-dismiss="modal") Close						
 br
 br
 br											

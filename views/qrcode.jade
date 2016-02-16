@@ -11,7 +11,7 @@ html
 		<link href="bower_components/pick-a-color/build/1.2.3/css/pick-a-color-1.2.3.min.css" rel="stylesheet">
 		|<script type='text/javascript'>
 		|	$(document).ready(function() {
-		|	myQRCode = document.getElementById("qrocde");
+		|	myQRCode = document.getElementById("qrcode");
 		|		$('.color-picker').pickAColor({
 		|			showSpectrum            : true,
 		|			showAdvanced            : false,
@@ -106,7 +106,7 @@ html
 					h4 Your QR Code Image
 				div.modal-body
 					div#qrcodeholder.cust_center 
-					div#qrocde(style="display: none;") #{qrcode}
+					div.hide#qrcode #{bqcode}
 					br
 					br
 					button#qrcodeDwnLdBtn.btn.btn-info.btn-sm.center-block(type="button") Download QR Code

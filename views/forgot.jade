@@ -4,17 +4,22 @@ doctype html
 html
 	head
 		title= title
-		meta(name='viewport', content='width=device-width, initial-scale=1.0')		
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		script( src="bower_components/jquery-validation/dist/jquery.validate.min.js")
+		script( src="js/forgot.js")				
 	body
 	block content
 		.container
 			h2 Forgot Password
 			br
-			form(role='form', action="/forgot",method="post")
+			form#forgot-form(role='form', action="/forgot",method="post")
 				div.panel.panel-primary
 					div.panel-heading
 						h3.panel-title Forgot Your Password?
 					div.panel-body
+						div#errorContainer
+							ul		
+						div#msg_info #{msg}				
 						div.form-group
 							div.row
 								div.col-xs-6

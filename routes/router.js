@@ -16,7 +16,11 @@ module.exports = function(app, passport)
 	
 	app.get('/', function(req, res) 
 	{
-		res.render('login.jade', { title: 'Intre Label Docs' });
+		if(req.user){
+			res.render('home.jade', { title: 'Intre Label Docs' });
+		}else{
+			res.render('login.jade', { title: 'Intre Label Docs' });
+		}
 	});
 	
 	app.get('/home', function(req, res) 
@@ -56,43 +60,56 @@ module.exports = function(app, passport)
 				res.render('about.jade');
 	});		
 
-	app.get('/login', function(req, res) 
+	app.get('/login',isUserNotLoggedIn, function(req, res) 
 	{
 		res.render('login.jade', { title: 'Intre Label Docs' });
 	});
 	
-	app.post('/login', passport.authenticate('local-login', 
-	{
-		successRedirect : '/home',
-		failureRedirect : '/login',
-		failureFlash : true
-	}));
+	app.post('/login', function(req, res, next) {
+		  passport.authenticate('local-login', function(err, user, info) {
+		    if (err) { return res.render('login',{msg:'Please enter a valid Email Address and Password!'}); }
+		    if (!user) { return res.render('login',{msg:'Please enter a valid Email Address and Password!'}); }
+		    req.logIn(user, function(err) {
+		      if (err) {  return res.render('login',{msg:'Please enter valid Email Address and Password!'});  }
+		      if(!user.actv_ind){
+		    	  return res.render('login',{msg:'Please activate your account to login!'});  
+		      }
+		      return res.redirect('home');
+		    });
+		  })(req, res, next);
+		});
 		
 	app.post('/createpo', isLoggedIn, function(req, res) {	
 		var PO = require('../models/porder');
 		var qrocdeUniqId = uuid.v1();
 		var newPO = new PO();
-		newPO.ponumber = req.body.ponumber;
-		newPO.prodcode = req.body.prodcode;
-		newPO.proddate = req.body.proddate;
-		newPO.vendor  = req.body.vendor;
-		newPO.countryoforigin = req.body.countryoforigin;
-		newPO.fdaregno = req.body.fdaregno;
-		newPO.tracebilityid = req.body.tracebilityid;
+		newPO.ponum = req.body.ponum;
+		newPO.bqcode = req.body.ponum+Date.now();
+		newPO.itemnum = req.body.itemnum;
+		newPO.code = req.body.code;
+		newPO.fdaregno  = req.body.fdaregno;
+		newPO.traceid = req.body.traceid;
+		newPO.productwgt = req.body.productwgt;
 		newPO.producttype = req.body.producttype;
-		newPO.productweight = req.body.productweight;
-		newPO.itemperpound = req.body.itemperpound;
-		newPO.qrcode = qrocdeUniqId;
-		newPO.username = req.user.username;	
-		newPO.submit_dt = Date.now();
+		newPO.packing = req.body.packing;
+		newPO.corigin = req.body.corigin;
+		newPO.company = req.body.company;
+		newPO.processor = req.body.processor;
+		newPO.submit_date = Date.now();
+		newPO.prod_date = req.body.prod_date;	
+		newPO.username = req.user.emailaddress;	
+		var bqcode = newPO.bqcode;
+
 		newPO.save(function(err) 
 				{
                     if (err)
                     	{
                         	console.log(err); 
-                        	res.render('createpo', { title: 'error', err: false,msg: 'Error saving PO'+err, page: 'createpo' }); 
+                        	res.render('createpo', { title: 'error', err: false,msg: 'Error saving PO, please contact Help Desk.'+err, page: 'createpo' }); 
                     	}else{
-                    		res.render('qrcode', { title: 'QR COde', err: false,msg: 'QR Code', page: 'qrcode' }); 
+                    		console.log("bqcode  -  "+newPO.bqcode);
+                    		res.render('qrcode', { title: 'QR Code',bqcode:bqcode,user:req.user, err: true, page: 'qrcode' });
+                    		//res.render('qrcode', { title: 'QR COde', bqcode:bqcode,err: false, page: 'qrcode' }); 
                     	}
                 });
 	});
@@ -109,7 +126,6 @@ module.exports = function(app, passport)
 	
 	app.get('/qrcode', isLoggedIn, function(req, res) 
 			{
-		console.log("user - "+req.user);
 				res.render('qrcode.jade', 
 						{
 							user : req.user
@@ -129,7 +145,7 @@ module.exports = function(app, passport)
 		      return res.render('register', { title: 'user not saved', err: false,msg: err, page: 'register' });
 		    }
 		    req.logIn(user, function(err) {
-		      if (err) { return next(err); }
+		      if (err) { return res.render('register', { title: 'user not saved', err: false,msg:'Error occured'+ err, page: 'register' }); }
 			  async.waterfall([
 			       		    function(done) {
 			       		      crypto.randomBytes(20, function(err, buf) {
@@ -144,8 +160,8 @@ module.exports = function(app, passport)
 			       		          return  res.render('home', { title: 'Test email- Contact', msg: 'No account with that'+emailaddress+ 'address exists.'+err, err: true, page: 'home' });
 			       		        }
 
-			       		        user.resetPasswordToken = token;
-			       		        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+			       		        user.activateToken = token;
+			       		        user.activateTokenExpires = Date.now() + 3600000; // 1 hour
 
 			       		        user.save(function(err) {
 			       		          done(err, token, user);
@@ -166,9 +182,9 @@ module.exports = function(app, passport)
 			       				      from: 'raksapp6@gmail.com', //grab form data from the request body object
 			       				      to: req.body.emailaddress,
 			       				      subject: 'Welcome to Label Docs',
-			       				        text: 'Welcome to our Label Docs now you can tract your purchase orders.\n\n' +
-			       				          'Please click on the following link, or paste this into your browser to complete the login process:\n\n' +
-			       				          'http://' + req.headers.host + '/reset/' + token + '\n\n'
+			       				        text: 'Welcome to our Label Docs.\n\n' +
+			       				          'Please click on the following link, or paste this into your browser to complete your registration with us:\n\n' +
+			       				          'http://' + req.headers.host + '/login/' + token + '\n\n'
 			       				  };
 			       				  smtpTrans.sendMail(mailOpts, function(err) {
 			       				      //Email sent
@@ -195,14 +211,69 @@ module.exports = function(app, passport)
 		res.render('register', { title: 'Error has occured, please contact help desk @ 123 123 45678', err: true, page: 'home' });
 	});
 	
-	app.get('/profile', isLoggedIn, function(req, res) 
+	
+	app.get('/login/:token', function(req, res) {
+		  async.waterfall([
+		    function(done) {
+		      User.findOne({ activateToken: req.params.token}, function(err, user) {
+		        if (!user) {
+		          req.flash('error', 'Password reset token is invalid or has expired.');
+		          return res.render('login', { title: 'Test email- Contact', msg: 'Password reset token is invalid or has expired.', err: true, page: 'login' });
+		        }
+
+		        user.actv_ind = true;
+		        user.activateToken = undefined;
+		        user.activateTokenExpires = undefined;
+
+		        user.save(function(err) {
+		        	 done(err,user);
+		        });
+		      });
+		    },
+		    function(user, done) {
+				var mailOpts, smtpTrans;
+				smtpTrans = nodemailer.createTransport('SMTP', {
+				      service: 'Gmail',
+				      auth: {
+				          user: "raksapp6@gmail.com",
+				          pass: "login_password" 
+				      }
+				  });				
+				  //Mail options
+				  mailOpts = {
+				      from: 'raksapp6@gmail.com', //grab form data from the request body object
+				      to: user.emailaddress,
+				      subject: 'Your Account is Activates',
+				        text: 'Hello,\n\n' +
+				          'This is a confirmation that your account ' + user.emailaddress + ' is sucesfully activated.\n'				  };
+				  smtpTrans.sendMail(mailOpts, function(err) {
+				      //Email  sent
+				      if (!err) {
+				    	  res.render('login', { title: 'Success', msg: 'Your account ' + user.emailaddress + ' has been activated Successfully!. Please login to continue', err: true, page: 'home' });
+				      }
+				      //Email not sent
+				      else {
+				          res.render('login', { title: 'Reste not done', msg:err, page: 'login' });
+				      }					  					 
+		      });
+		    }
+		  ]);
+		});	
+	
+	app.get('/profile',isLoggedIn, function(req,res){
+		  res.render('profile.jade', { user : req.user});
+		});
+	
+	app.get('/get/json', function(req, res) 
 			{					
 				var PO = require('../models/porder');
-				PO.find({username:req.user.username}, function(err, result) 
+				PO.find({username:req.user.emailaddress}, function(err, result) 
 						 {
 						      if (!err) 
 						      {
-						    	  res.render('profile.jade', { user : req.user, podocs: result, poscount: PO.find({}).count()});
+								  res.setHeader('Content-Type', 'application/result');
+								  res.end(JSON.stringify(result));
+						    	 // res.render('profile.jade', { user : req.user, podocs: result, poscount: PO.find({}).count()});
 						      } 
 						      else 
 						      {
@@ -236,9 +307,12 @@ module.exports = function(app, passport)
 		    },
 		    function(token, done) {
 		      User.findOne({ emailaddress: req.body.emailaddress }, function(err, user) {
+		    	if (err) { 
+		    		return res.render('forgot',{msg:'Please enter a valid Email Address!'}); 
+		    	}
 		        if (!user) {
 		          req.flash('error', 'No account with that email address exists.');
-		          return  res.render('home', { title: 'Test email- Contact', msg: 'No account with that'+emailaddress+ 'address exists.'+err, err: true, page: 'home' });
+		          return  res.render('forgot', { title: 'Error', msg: 'No account with '+req.body.emailaddress+ ' exists.', err: true, page: 'forgot' });
 		        }
 
 		        user.resetPasswordToken = token;

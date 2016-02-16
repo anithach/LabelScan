@@ -1,58 +1,88 @@
 $(document).ready(function() {
-	$('#potable').DataTable({
-		"order": [[ 1, "desc" ]],
-		  "aoColumnDefs": [
-		                   { 
-		                       "aTargets": [1], //column index counting from the left
-		                       "sType": 'date',
-		                       "fnRender": function ( dateObj ) {
-		                           var oDate = new Date(dateObj.aData[0]);
-		                           result = oDate.getDate()+"/"+(oDate.getMonth()+1)+"/"+oDate.getFullYear();
-		                           return "<span>"+result+"</span>";
-		                       }
-		                   }
-		                 ],		
-		responsive: {
-		details: {
-		display: $.fn.dataTable.Responsive.display.childRowImmediate,
-		type: ''
-		}
-		}
-	} );		
-	myQRCode = document.getElementById("qrocde");
-		$('.color-picker').pickAColor({
-			showSpectrum            : true,
-			showAdvanced            : false,
-			showSavedColors         : false,
-			saveColorsPerElement    : false,
-			fadeMenuToggle          : true,
-			showHexInput            : true,
-			showBasicColors         : true,
-			allowBlank              : false,
-			inlineDropdown          : false
-	});		
-	$("#qrcodeGenBtn").click(function () {
-		$('#qrcodeholder canvas').remove();		
-		var qrCodeWidth = '150';
-		var qrCodeHeight = '150';
-		var imageSizeVal = $( "#imageSize" ).val();	
-		if(imageSizeVal === 'medium'){		
-			qrCodeWidth = '250';
-			qrCodeHeight = '250';
-		}else if(imageSizeVal === 'large'){
-			qrCodeWidth = '350';
-			qrCodeHeight = '350';
-		}
-		//QRcode generation for div qrcodeholder							
-		$('#qrcodeholder').qrcode({
-			text	: myQRCode.innerHTML,
-			render	: "canvas",  // 'canvas' or 'table'. Default value is 'canvas'
-			background : "#000000",
-			foreground : "#ffffff",
-			width : qrCodeWidth,
-			height: qrCodeHeight
+	function format ( d ) {
+	    // `d` is the original data object for the row
+	    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+	        '<tr>'+
+	            '<td>Product number:</td>'+	          	            
+	            '<td>'+d.ponum+'</td>'+
+	            '</td>'+
+	        '</tr>'+
+	        '<tr>'+
+	            '<td>Extra info:</td>'+
+	            '<td>And any further details here (images etc)...</td>'+
+	        '</tr>'+
+	    '</table>';
+	}	
+	
+    var table = $('#example').DataTable( {
+        ajax: {
+            url: "/get/json",
+            datatype: 'json',
+            dataSrc: ""
+        },
+        "order": [[ 2, "desc" ]],
+        "columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+	        { data : "ponum" ,defaultContent: '-'},
+	        { data : "submit_date" ,defaultContent: '-',
+	        	"render": function (data) {
+	                var date = new Date(data);
+	                var month = date.getMonth() + 1;
+	                return (month.length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
+	            }},
+	        { data : "code" ,defaultContent: '-'},
+	        { data : "prod_date" ,defaultContent: '-',
+	        	"render": function (data) {
+	                var date = new Date(data);
+	                var month = date.getMonth() + 1;
+	                return (month.length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
+	            }},
+	        { data : "corigin" ,defaultContent: '-'},       
+	        { data : "company",defaultContent: '-'},
+	        {
+	            "data": null, // can be null or undefined
+	            "defaultContent": '<button id="qrcodeGenBtn" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#qrCodeModal">View QR Code</button>'
+	         },
+        ]
+    } );
+    
+    // Add event listener for opening and closing details
+    $('#example tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+ 
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } );
+    
+    
+    $('#example tbody').on( 'click', 'tr', function () {
+    	var table = $('#example').DataTable();     
+    	$('#bqcode').text(table.row( this ).data().bqcode); 
+    	myQRCode = document.getElementById("bqcode");
+    	console.log(myQRCode.innerHTML);
+    	$('#qrcodeholder canvas').remove();		    		   		
+    	//QRcode generation for div qrcodeholder							
+   		 $('#qrcodeholder').qrcode({
+   			 width: 150,
+			 height: 150,
+			 text: myQRCode.innerHTML
 		});
-	});
+    });
+
 	//Download QR code image on qrcodeDwnLdBtn click		
 	$("#qrcodeDwnLdBtn").click(function () {
 		var canvas = $('#qrcodeholder canvas');
@@ -62,5 +92,6 @@ $(document).ready(function() {
 	   	dl.setAttribute('download', 'qrcode.png');
 	   	// simulate a click will start download the image, and name is qrcode.png.
 	  	 dl.click();
-   });		
+   });    
+
 });			

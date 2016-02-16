@@ -4,13 +4,14 @@ doctype html
 html
 	head
 		title= title
-		meta(name='viewport', content='width=device-width, initial-scale=1.0')		
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')	
+		script( src="js/reset.js")	
 	body
 	block content
 		.container
 			h2 Reset Password
 			br
-			form(role='form', method="post")
+			form#reset-form(role='form', method="post")
 				div.panel.panel-primary
 					div.panel-heading
 						h3.panel-title Reset Your Password

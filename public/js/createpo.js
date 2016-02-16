@@ -16,14 +16,28 @@
 			                    }
 			                },		                	
 		            		rules: {
-		            		ponumber: "required",
-		            		proddate: "required",
-		            		vendor: "required"
+		            		ponum: "required",
+		            		prod_date: "required",
+		            		code: {
+		                        number: true
+		                    },
+		            		fdaregno: {
+		                        number: true
+		                    },
+		            		traceid: {
+		                        number: true
+		                    },
+		                    prod_date : {
+		                    	required : true,
+		                    	date: true
+		                    }
 		                },
 		                messages: {
-		                	ponumber: "Please enter your Purchase Order No.",
-		                	proddate: "Please enter your Production Date",
-		                    vendor: "Please enter your Vendor Name."
+		                	ponum: "Please enter your Purchase Order No.",
+		                	prod_date: "Please enter your Production Date",
+		                    code: "Please enter a valid Code.",
+		                    fdaregno: "Please enter valid FDA Registration No.",
+		                    traceid: "Please enter valid Tracebility ID."
 		                },
 		                errorContainer: $('#errorContainer'),
 		                errorLabelContainer: $('#errorContainer ul'),
@@ -41,3 +55,12 @@
 		    });
 
 		})(jQuery, window, document);
+
+	$(function() {
+        $( "#datepicker" ).datepicker({
+            showOn: "button",
+            buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+            buttonImageOnly: true            
+        });
+        
+	  });
