@@ -243,7 +243,7 @@ module.exports = function(app, passport)
 				  mailOpts = {
 				      from: 'raksapp6@gmail.com', //grab form data from the request body object
 				      to: user.emailaddress,
-				      subject: 'Your Account is Activates',
+				      subject: 'Your Label Docs Account is Activated',
 				        text: 'Hello,\n\n' +
 				          'This is a confirmation that your account ' + user.emailaddress + ' is sucesfully activated.\n'				  };
 				  smtpTrans.sendMail(mailOpts, function(err) {
