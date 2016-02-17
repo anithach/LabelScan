@@ -36,7 +36,7 @@ $(document).ready(function() {
 	                return (month.length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
 	            }},
 	        { data : "code" ,defaultContent: '-'},
-	        { data : "prod_date" ,defaultContent: '-',
+	        { data : "proddate" ,defaultContent: '-',
 	        	"render": function (data) {
 	                var date = new Date(data);
 	                var month = date.getMonth() + 1;

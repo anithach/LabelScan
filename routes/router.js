@@ -96,7 +96,7 @@ module.exports = function(app, passport)
 		newPO.company = req.body.company;
 		newPO.processor = req.body.processor;
 		newPO.submit_date = Date.now();
-		newPO.prod_date = req.body.prod_date;	
+		newPO.proddate = req.body.proddate;	
 		newPO.username = req.user.emailaddress;	
 		var bqcode = newPO.bqcode;
 

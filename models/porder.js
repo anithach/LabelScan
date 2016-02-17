@@ -19,7 +19,7 @@ var poSchema = new Schema(
 			company : String,
 			processor : String,
 			submit_date : Date,
-			prod_date : Date,
+			proddate : Date,
 			username : String
 		});
 

@@ -17,7 +17,7 @@
 			                },		                	
 		            		rules: {
 		            		ponum: "required",
-		            		prod_date: "required",
+		            		proddate: "required",
 		            		prodcode: {
 		                        number: true
 		                    },
@@ -27,14 +27,14 @@
 		            		traceid: {
 		                        number: true
 		                    },
-		                    prod_date : {
+		                    proddate : {
 		                    	required : true,
 		                    	date: true
 		                    }
 		                },
 		                messages: {
 		                	ponum: "Please enter your Purchase Order No.",
-		                	prod_date: "Please enter your Production Date",
+		                	proddate: "Please enter your Production Date",
 		                	prodcode: "Please enter a valid Code.",
 		                    fdaregno: "Please enter valid FDA Registration No.",
 		                    traceid: "Please enter valid Tracebility ID."
