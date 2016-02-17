@@ -9,7 +9,7 @@ var poSchema = new Schema(
 			ponum : String,
 			bqcode : String,
 			itemnum : String,
-			code   : Number,
+			prodcode   : Number,
 			fdaregno: Number,
 			traceid : Number,
 			productwgt : String,
@@ -23,7 +23,7 @@ var poSchema = new Schema(
 			username : String
 		});
 
-poSchema.set('collection', 'purchaseOrders');
+poSchema.set('collection', 'PURCHASEORDERS');
 
 var Pord = mongoose.model('PO', poSchema);
 

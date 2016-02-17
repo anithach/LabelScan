@@ -33,10 +33,10 @@ var userSchema = mongoose.Schema({
 	activateToken: String,
 	activateTokenExpires: Date,
 	update_dt : {type: Date, default: Date.now },
-	actv_ind : {type: Boolean, default: false }
+	status : Number
 });
 
-userSchema.set('collection', 'users');
+userSchema.set('collection', 'USERS');
 
 userSchema.methods.generateHash = function(password) 
 {

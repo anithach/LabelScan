@@ -91,12 +91,7 @@ module.exports = function(passport)
 					if (!user.validPassword(password))
 						{
 		                	return done(null, false, req.flash('loginMessage', 'Wrong password.'));
-						}
-					if (!user.actv_ind)
-					{						
-	                	return done(null, false, req.flash('loginMessage', 'User is not Active.'));
-					}
-					console.log("user.actv_ind -- "+user.actv_ind);
+						}					
 					 return done(null, user);
 				});
 				

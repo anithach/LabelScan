@@ -71,7 +71,7 @@ module.exports = function(app, passport)
 		    if (!user) { return res.render('login',{msg:'Please enter a valid Email Address and Password!'}); }
 		    req.logIn(user, function(err) {
 		      if (err) {  return res.render('login',{msg:'Please enter valid Email Address and Password!'});  }
-		      if(!user.actv_ind){
+		      if(user.status == 0){
 		    	  return res.render('login',{msg:'Please activate your account to login!'});  
 		      }
 		      return res.redirect('home');
@@ -86,7 +86,7 @@ module.exports = function(app, passport)
 		newPO.ponum = req.body.ponum;
 		newPO.bqcode = req.body.ponum+Date.now();
 		newPO.itemnum = req.body.itemnum;
-		newPO.code = req.body.code;
+		newPO.prodcode = req.body.prodcode;
 		newPO.fdaregno  = req.body.fdaregno;
 		newPO.traceid = req.body.traceid;
 		newPO.productwgt = req.body.productwgt;
@@ -140,12 +140,12 @@ module.exports = function(app, passport)
 	
 	app.post('/register', function(req, res, next) {
 		  passport.authenticate('local-register', function(err, user, info) {
-		    if (err) { res.render('register', { title: 'error', err: false,msg: 'Email address  is invalid.'+err, page: 'register' }); }
+		    if (err) { return res.render('register', { title: 'error', err: false,msg: 'Email address  is invalid.'+err, page: 'register' }); }
 		    if (!user) {
-		      return res.render('register', { title: 'user not saved', err: false,msg: err, page: 'register' });
+		      return res.render('register', { title: 'user not saved', err: false,msg: 'Error occured Please contact Help desk!', page: 'register' });
 		    }
 		    req.logIn(user, function(err) {
-		      if (err) { return res.render('register', { title: 'user not saved', err: false,msg:'Error occured'+ err, page: 'register' }); }
+		      if (err) { return res.render('register', { title: 'user not saved', err: false,msg:'Error occured Please contact Help desk!'+ err, page: 'register' }); }
 			  async.waterfall([
 			       		    function(done) {
 			       		      crypto.randomBytes(20, function(err, buf) {
@@ -221,7 +221,7 @@ module.exports = function(app, passport)
 		          return res.render('login', { title: 'Test email- Contact', msg: 'Password reset token is invalid or has expired.', err: true, page: 'login' });
 		        }
 
-		        user.actv_ind = true;
+		        user.status = 1;
 		        user.activateToken = undefined;
 		        user.activateTokenExpires = undefined;
 

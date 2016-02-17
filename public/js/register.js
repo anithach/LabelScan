@@ -18,7 +18,7 @@
 		            		rules: {
 		                    firstname: "required",
 		                    lastname: "required",
-		                    email: {
+		                    emailaddress: {
 		                        required: true,
 		                        email: true
 		                    },
@@ -26,8 +26,7 @@
 		                        required: true,
 		                        minlength: 5
 		                    },
-		                    company: "required",
-		                    emailaddress: "required",
+		                    company: "required"		       
 //		                    primaryPhone: "required",
 //		                    adressLine1: "required",
 //		                    adressLine2: "required",
@@ -44,7 +43,10 @@
 		                        minlength: "Your password must be at least 5 characters long."
 		                    },
 		                    company: "Please enter your Company Name.",
-		                    emailaddress: "Please enter a valid email address.",
+		                    emailaddress:{
+		                        required: "Please provide a Email address.",
+		                        email: "Please enter a valid Email address."
+		                    } 
 //		                    primaryPhone: "Please enter your Primary Phone.",
 //		                    adressLine1: "Please enter your Company Address Line 1.",
 //		                    adressLine2: "Please enter your Company Address Line 2.",

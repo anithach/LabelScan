@@ -18,7 +18,7 @@
 		            		rules: {
 		            		ponum: "required",
 		            		prod_date: "required",
-		            		code: {
+		            		prodcode: {
 		                        number: true
 		                    },
 		            		fdaregno: {
@@ -35,7 +35,7 @@
 		                messages: {
 		                	ponum: "Please enter your Purchase Order No.",
 		                	prod_date: "Please enter your Production Date",
-		                    code: "Please enter a valid Code.",
+		                	prodcode: "Please enter a valid Code.",
 		                    fdaregno: "Please enter valid FDA Registration No.",
 		                    traceid: "Please enter valid Tracebility ID."
 		                },

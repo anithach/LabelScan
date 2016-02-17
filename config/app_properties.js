@@ -3,7 +3,7 @@
  */
 
 var port = 1337;
-var dburl = "mongodb://localhost:27017/labeldb";
+var dburl = "mongodb://localhost:27017/LDPRD";
 
 module.exports = 
 {
