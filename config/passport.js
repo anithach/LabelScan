@@ -42,7 +42,8 @@ module.exports = function(passport)
 					newUser.adressLine2 = req.body.adressLine2;
 					newUser.city = req.body.city;
 					newUser.postalCode = req.body.postalCode;
-					newUser.country = req.body.country;										
+					newUser.country = req.body.country;	
+					newUser.status = 0;
 					newUser.save(function(err) 
 							{
 			                    if (err)

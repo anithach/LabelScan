@@ -118,6 +118,7 @@ module.exports = function(app, passport)
 	
 	app.get('/createpo', isLoggedIn, function(req, res) 
 			{
+				res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');		
 				res.render('createpo.jade', 
 						{
 							user : req.user
@@ -126,6 +127,7 @@ module.exports = function(app, passport)
 	
 	app.get('/qrcode', isLoggedIn, function(req, res) 
 			{
+				res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 				res.render('qrcode.jade', 
 						{
 							user : req.user
@@ -171,15 +173,15 @@ module.exports = function(app, passport)
 			       		    function(token, user, done) {
 			       				var mailOpts, smtpTrans;
 			       				smtpTrans = nodemailer.createTransport('SMTP', {
-			       				      service: 'Gmail',
+			       				      service: 'Zoho',
 			       				      auth: {
-			       				          user: "raksapp6@gmail.com",
-			       				          pass: "login_password" 
+			       				          user: "noreply@labeldocs.com",
+			       				          pass: "Mailer4comm" 
 			       				      }
 			       				  });				
 			       				  //Mail options
 			       				  mailOpts = {
-			       				      from: 'raksapp6@gmail.com', //grab form data from the request body object
+			       				      from: 'noreply@labeldocs.com', //grab form data from the request body object
 			       				      to: req.body.emailaddress,
 			       				      subject: 'Welcome to Label Docs',
 			       				        text: 'Welcome to our Label Docs.\n\n' +
@@ -233,15 +235,15 @@ module.exports = function(app, passport)
 		    function(user, done) {
 				var mailOpts, smtpTrans;
 				smtpTrans = nodemailer.createTransport('SMTP', {
-				      service: 'Gmail',
+				      service: 'Zoho',
 				      auth: {
-				          user: "raksapp6@gmail.com",
-				          pass: "login_password" 
+				          user: "noreply@labeldocs.com",
+				          pass: "Mailer4comm" 
 				      }
 				  });				
 				  //Mail options
 				  mailOpts = {
-				      from: 'raksapp6@gmail.com', //grab form data from the request body object
+				      from: 'noreply@labeldocs.com', //grab form data from the request body object
 				      to: user.emailaddress,
 				      subject: 'Your Label Docs Account is Activated',
 				        text: 'Hello,\n\n' +
@@ -265,7 +267,8 @@ module.exports = function(app, passport)
 		});
 	
 	app.get('/get/json', function(req, res) 
-			{					
+			{	
+		res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 				var PO = require('../models/porder');
 				PO.find({username:req.user.emailaddress}, function(err, result) 
 						 {
@@ -277,7 +280,7 @@ module.exports = function(app, passport)
 						      } 
 						      else 
 						      {
-						    	res.render('profile.jade', { user : req.user, podocs: {error : err}});
+						    	res.render('profile.jade', { user : req.user, msg: 'Error occured while loading the page.'});
 						      }
 						 });
 				
@@ -326,15 +329,15 @@ module.exports = function(app, passport)
 		    function(token, user, done) {
 				var mailOpts, smtpTrans;
 				smtpTrans = nodemailer.createTransport('SMTP', {
-				      service: 'Gmail',
+				      service: 'Zoho',
 				      auth: {
-				          user: "raksapp6@gmail.com",
-				          pass: "login_password" 
+				          user: "noreply@labeldocs.com",
+				          pass: "Mailer4comm" 
 				      }
 				  });				
 				  //Mail options
 				  mailOpts = {
-				      from: 'raksapp6@gmail.com', //grab form data from the request body object
+				      from: 'noreply@labeldocs.com', //grab form data from the request body object
 				      to: req.body.emailaddress,
 				      subject: 'Password Reset',
 				        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
@@ -388,15 +391,15 @@ module.exports = function(app, passport)
 		    function(user, done) {
 				var mailOpts, smtpTrans;
 				smtpTrans = nodemailer.createTransport('SMTP', {
-				      service: 'Gmail',
+				      service: 'Zoho',
 				      auth: {
-				          user: "raksapp6@gmail.com",
-				          pass: "login_password" 
+				          user: "noreply@labeldocs.com",
+				          pass: "Mailer4comm" 
 				      }
 				  });				
 				  //Mail options
 				  mailOpts = {
-				      from: 'raksapp6@gmail.com', //grab form data from the request body object
+				      from: 'noreply@labeldocs.com', //grab form data from the request body object
 				      to: user.emailaddress,
 				      subject: 'Your password has been changed',
 				        text: 'Hello,\n\n' +
