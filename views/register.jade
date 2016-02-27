@@ -4,6 +4,7 @@ doctype html
 html
 	head
 		title= title
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
 		script( src="bower_components/jquery-validation/dist/jquery.validate.min.js")
 		script( src="http://maps.google.com/maps/api/js?libraries=places&language=en-AU")
 		script( src="js/register.js")
@@ -22,99 +23,96 @@ html
 						div #{msg}
 						div.form-group
 							div.row
-								div.col-xs-6
-									label.col-xs-4 First Name
+								div.col-sm-6
+									label.col-sm-4 First Name
 									div.row
-										div.col-xs-8 
+										div.col-sm-8 
 											input.form-control(type='text', name="firstname", placeholder='Enter First Name')
-								div.col-xs-6
-									label.col-xs-4 Last Name
+								div.col-sm-6
+									label.col-sm-4 Last Name
 									div.row
-										div.col-xs-8 
+										div.col-sm-8 
 											input.form-control(type='text', name="lastname", placeholder='Enter Last Name')
 						div.form-group
 							div.row
-								div.col-xs-6
-									label.col-xs-4 Email Address
+								div.col-sm-6
+									label.col-sm-4 Email Address
 									div.row
-										div.col-xs-8 
+										div.col-sm-8 
 											input.form-control(type='text', name="emailaddress", placeholder='Enter Email Address')
-								div.col-xs-6
-									label.col-xs-4 Password
+								div.col-sm-6
+									label.col-sm-4 Password
 									div.row
-										div.col-xs-8 
+										div.col-sm-8 
 											input.form-control(type='password', name="password", placeholder='Password')
 						div.form-group
 							div.row
-								div.col-xs-8
+								div.col-sm-8
 									label  Company Name (Legal Name, not DBA Doing Business As)
 									div.row
-										div.col-xs-12
+										div.col-sm-12
 											input.form-control(type='text', name="company", placeholder='Company')
 						div.form-group
 							div.row
-								div.col-xs-6
-									label.col-xs-4 Primary Phone
+								div.col-sm-6
+									label.col-sm-4 Primary Phone
 									div.row
-										div.col-xs-8 
+										div.col-sm-8 
 											input.form-control(type='text', name="primaryPhone", placeholder='Primary Phone')
-								div.col-xs-6
-									label.col-xs-4 Secondary Phone
+								div.col-sm-6
+									label.col-sm-4 Secondary Phone
 									div.row
-										div.col-xs-8 
+										div.col-sm-8 
 											input.form-control(type='text', name="secondaryPhone", placeholder='Secondary Phone')
 						div.form-group
 							div.row
-								div.col-xs-8
+								div.col-sm-8
 									label  Company  Address
 									div.row
-										div.col-xs-12
+										div.col-sm-12
 											input.form-control(type='text', id="address", placeholder='Company Full Address')																						
 						div.form-group
 							div.row
-								div.col-xs-8
+								div.col-sm-8
 									label  Company Address Line 1
 									div.row
-										div.col-xs-12
+										div.col-sm-12
 											input.form-control(type='text', name="adressLine1", placeholder='Company Full Address')
 						div.form-group
 							div.row
-								div.col-xs-8
+								div.col-sm-8
 									label  Company Address Line 2
 									div.row
-										div.col-xs-12
+										div.col-sm-12
 											input.form-control(type='text', name="adressLine2", placeholder='Company Address Line 2')
 						div.form-group
 							div.row
-								div.col-xs-6
-									label.col-xs-4 City
+								div.col-sm-6
+									label.col-sm-4 City
 									div.row
-										div.col-xs-8 
+										div.col-sm-8 
 											input.form-control(type='text', name="city", placeholder='Company City')
-								div.col-xs-6
-									label.col-xs-4 State
+								div.col-sm-6
+									label.col-sm-4 State
 									div.row
-										div.col-xs-8 
+										div.col-sm-8 
 											input.form-control(type='text', name="state", placeholder='State')											
 						div.form-group
 							div.row
-								div.col-xs-6
-									label.col-xs-4 Postal Code
+								div.col-sm-6
+									label.col-sm-4 Postal Code
 									div.row
-										div.col-xs-8 
+										div.col-sm-8 
 											input.form-control(type='text', name="postalCode", placeholder='Postal Code')
-								div.col-xs-6
-									label.col-xs-4 Country
+								div.col-sm-6
+									label.col-sm-4 Country
 									div.row
-										div.col-xs-8 
+										div.col-sm-8 
 											input.form-control(type='text', name="country", placeholder='Country')											
 											
-						div.form-group		
-							div.row
-								div.col-xs-8
-									div.col-xs-2
-										button.btn.btn-primary(type='submit') Submit		
-									div.col-xs-2
-										a(href='/')
-											button.btn.btn-primary(type="button") Cancel
-include footer								
+						div.btn-group		
+							button.btn.btn-primary(type='submit') Submit
+							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp		
+							a(href='/')
+								button.btn.btn-primary(type="button") Cancel
+//include footer								

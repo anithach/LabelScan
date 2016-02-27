@@ -46,7 +46,7 @@ $(document).ready(function() {
 	        { data : "company",defaultContent: '-'},
 	        {
 	            "data": null, // can be null or undefined
-	            "defaultContent": '<button id="qrcodeGenBtn" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#qrCodeModal">View QR Code</button>'
+	            "defaultContent": '<button id="qrcodeGenBtn" type="button" class="button btn btn-primary btn-sm" data-toggle="modal" data-target="#qrCodeModal">View QR Code</button>'
 	         },
         ]
     } );
