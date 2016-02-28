@@ -183,8 +183,8 @@ module.exports = function(app, passport)
 			       				  mailOpts = {
 			       				      from: 'noreplytraceit@gmail.com', //grab form data from the request body object
 			       				      to: req.body.emailaddress,
-			       				      subject: 'Welcome to Label Docs',
-			       				        text: 'Welcome to our Label Docs.\n\n' +
+			       				      subject: 'Welcome to Trace IT',
+			       				        text: 'Welcome to our Trace IT.\n\n' +
 			       				          'Please click on the following link, or paste this into your browser to complete your registration with us:\n\n' +
 			       				          'http://' + req.headers.host + '/login/' + token + '\n\n'
 			       				  };
@@ -245,7 +245,7 @@ module.exports = function(app, passport)
 				  mailOpts = {
 				      from: 'noreplytraceit@gmail.com', //grab form data from the request body object
 				      to: user.emailaddress,
-				      subject: 'Your Label Docs Account is Activated',
+				      subject: 'Your Trace IT Account is Activated',
 				        text: 'Hello,\n\n' +
 				          'This is a confirmation that your account ' + user.emailaddress + ' is sucesfully activated.\n'				  };
 				  smtpTrans.sendMail(mailOpts, function(err) {
