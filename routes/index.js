@@ -4,5 +4,5 @@
  */
 exports.index = function(req, res)
 {
-  res.render('index', { title: 'Intre Label Docs' });
+  res.render('index', { title: 'Trace IT' });
 };

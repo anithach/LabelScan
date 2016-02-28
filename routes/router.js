@@ -17,9 +17,9 @@ module.exports = function(app, passport)
 	app.get('/', function(req, res) 
 	{
 		if(req.user){
-			res.render('home.jade', { title: 'Intre Label Docs' });
+			res.render('home.jade', { title: 'Trace IT' });
 		}else{
-			res.render('login.jade', { title: 'Intre Label Docs' });
+			res.render('login.jade', { title: 'Trace IT' });
 		}
 	});
 	
@@ -62,7 +62,7 @@ module.exports = function(app, passport)
 
 	app.get('/login',isUserNotLoggedIn, function(req, res) 
 	{
-		res.render('login.jade', { title: 'Intre Label Docs' });
+		res.render('login.jade', { title: 'Trace IT' });
 	});
 	
 	app.post('/login', function(req, res, next) {
@@ -173,15 +173,15 @@ module.exports = function(app, passport)
 			       		    function(token, user, done) {
 			       				var mailOpts, smtpTrans;
 			       				smtpTrans = nodemailer.createTransport('SMTP', {
-			       				      service: 'Zoho',
+			       				      service: 'gmail',
 			       				      auth: {
-			       				          user: "noreply@labeldocs.com",
+			       				          user: "noreplytraceit@gmail.com",
 			       				          pass: "Mailer4comm" 
 			       				      }
 			       				  });				
 			       				  //Mail options
 			       				  mailOpts = {
-			       				      from: 'noreply@labeldocs.com', //grab form data from the request body object
+			       				      from: 'noreplytraceit@gmail.com', //grab form data from the request body object
 			       				      to: req.body.emailaddress,
 			       				      subject: 'Welcome to Label Docs',
 			       				        text: 'Welcome to our Label Docs.\n\n' +
@@ -235,15 +235,15 @@ module.exports = function(app, passport)
 		    function(user, done) {
 				var mailOpts, smtpTrans;
 				smtpTrans = nodemailer.createTransport('SMTP', {
-				      service: 'Zoho',
+				      service: 'gmail',
 				      auth: {
-				          user: "noreply@labeldocs.com",
+				          user: "noreplytraceit@gmail.com",
 				          pass: "Mailer4comm" 
 				      }
 				  });				
 				  //Mail options
 				  mailOpts = {
-				      from: 'noreply@labeldocs.com', //grab form data from the request body object
+				      from: 'noreplytraceit@gmail.com', //grab form data from the request body object
 				      to: user.emailaddress,
 				      subject: 'Your Label Docs Account is Activated',
 				        text: 'Hello,\n\n' +
@@ -296,7 +296,7 @@ module.exports = function(app, passport)
 	
 	app.get('/forgot', function(req, res) 
 			{
-				res.render('forgot.jade', { title: 'Intre Label Docs' });
+				res.render('forgot.jade', { title: 'Trace IT' });
 			});	
 
 	
@@ -329,15 +329,15 @@ module.exports = function(app, passport)
 		    function(token, user, done) {
 				var mailOpts, smtpTrans;
 				smtpTrans = nodemailer.createTransport('SMTP', {
-				      service: 'Zoho',
+				      service: 'gmail',
 				      auth: {
-				          user: "noreply@labeldocs.com",
+				          user: "noreplytraceit@gmail.com",
 				          pass: "Mailer4comm" 
 				      }
 				  });				
 				  //Mail options
 				  mailOpts = {
-				      from: 'noreply@labeldocs.com', //grab form data from the request body object
+				      from: 'noreplytraceit@gmail.com', //grab form data from the request body object
 				      to: req.body.emailaddress,
 				      subject: 'Password Reset',
 				        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
@@ -391,15 +391,15 @@ module.exports = function(app, passport)
 		    function(user, done) {
 				var mailOpts, smtpTrans;
 				smtpTrans = nodemailer.createTransport('SMTP', {
-				      service: 'Zoho',
+				      service: 'gmail',
 				      auth: {
-				          user: "noreply@labeldocs.com",
+				          user: "noreplytraceit@gmail.com",
 				          pass: "Mailer4comm" 
 				      }
 				  });				
 				  //Mail options
 				  mailOpts = {
-				      from: 'noreply@labeldocs.com', //grab form data from the request body object
+				      from: 'noreplytraceit@gmail.com', //grab form data from the request body object
 				      to: user.emailaddress,
 				      subject: 'Your password has been changed',
 				        text: 'Hello,\n\n' +
