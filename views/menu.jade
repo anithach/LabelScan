@@ -19,7 +19,7 @@ html
 	body
 		div.container
 			if loggedIn
-				+nav("TraceiT", "dropdown_menu", "navbar-default navbar-fixed-top")
+				+nav("TraceiT","dropdown_menu", "navbar-default navbar-fixed-top")
 					+nav_item( "/home" ) Home
 					+nav_item( "/profile" ) PO Profile
 					+nav_item( "/createpo" ) Create PO 
@@ -28,9 +28,10 @@ html
 					+nav_item_logo("/myinbox", "cust_nav_logo xhidden-xs")
 			else
 				+nav("TraceiT", "dropdown_menu", "navbar-default navbar-fixed-top")
+					+nav_item( "/" ) Home
 					+nav_item( "/about" ) About
 					+nav_item( "/contact" ) Contact Us
-					+nav_item( "/" ) Login
+					+nav_item( "/login" ) Login
 
 					
 					br

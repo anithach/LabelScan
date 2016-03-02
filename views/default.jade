@@ -1,0 +1,44 @@
+include menu
+
+doctype html
+html
+	head
+		title= title		
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+	body
+		br
+		br		
+		#myCarousel.carousel.slide(data-ride='carousel')
+			ol.carousel-indicators
+				li.active(data-target='#myCarousel', data-slide-to='0')															
+				li(data-target='#myCarousel', data-slide-to='1')			
+				li(data-target='#myCarousel', data-slide-to='2')			
+			// Wrapper for slides
+			.carousel-inner(role='listbox')
+				.item.active
+					img.full-width(src='img/fresh_food.jpg', alt='SeaFood')
+					div.carousel-caption
+						div.full-width
+							h1 TraceiT - Farm to Fork tracing
+							h4								
+								| TraceiT is a great solution to track any food
+								| through all stages of production, processing and distribution by
+								| providing greater visibility to the customer.					
+				.item
+					img.full-width(src='img/logistic3.jpg', alt='Shrimp')
+					div.carousel-caption
+						div.full-width
+							h2 Farm to Fork tracking													
+				.item
+					img(src='img/scan.jpg', width="80%",alt='logistics')
+					div.carousel-caption
+						div.full-width
+							h2 Farm to Fork tracking					
+				// Left and right controls
+				a.left.carousel-control(href='#myCarousel', role='button', data-slide='prev')
+					span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+					span.sr-only Previous
+				a.right.carousel-control(href='#myCarousel', role='button', data-slide='next')
+					span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+					span.sr-only Next																						
+																																																

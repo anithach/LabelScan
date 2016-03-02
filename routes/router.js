@@ -19,7 +19,7 @@ module.exports = function(app, passport)
 		if(req.user){
 			res.render('home.jade', { title: 'Trace IT' });
 		}else{
-			res.render('login.jade', { title: 'Trace IT' });
+			res.render('default.jade', { title: 'Trace IT' });
 		}
 	});
 	
