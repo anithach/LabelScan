@@ -33,7 +33,8 @@ var userSchema = mongoose.Schema({
 	activateToken: String,
 	activateTokenExpires: Date,
 	update_dt : {type: Date, default: Date.now },
-	status : Number
+	status : Number,
+	mapptoken:  String
 });
 
 userSchema.set('collection', 'USERS');

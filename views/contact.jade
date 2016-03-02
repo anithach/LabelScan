@@ -16,14 +16,10 @@ html
 					div.panel-heading
 						h3.panel-title Contact us
 					div.panel-body											
-						div.col
-							//img.img-responsive(src="img/contact_us.png")
-						div.col
-							br
+						div.col							
 							div#errorContainer
 							ul							
-							div#msg_info  #{msg}
-							br				
+							div#msg_info  #{msg}										
 						div.col
 							div.form-group
 								div.row
@@ -41,25 +37,11 @@ html
 												input.form-control(type='text', name="emailaddress", placeholder='Enter Email')
 							div.form-group
 								div.row
-									div.col-sm-6
-										label.col-sm-4 Phone
-										div.row
-											div.col-sm-8 
-												input.form-control(type='text', name="phone", placeholder='Phone')
-							div.form-group
-								div.row
-									div.col-sm-8
-										label.col-sm-4  Subject
-										div.row
-											div.col-sm-12
-												textarea.form-control(rows = '2',cols = '40', name ="subject" ) 
-							div.form-group
-								div.row
 									div.col-sm-8
 										label.col-sm-4  Message
 										div.row
 											div.col-sm-12
-												textarea.form-control(rows = '5',cols = '40', name ="message" ) 											
+												textarea.form-control(rows = '5',cols = '40', name ="message", placeholder='Enter Message' ) 											
 												
 							div.form-group		
 								div.row

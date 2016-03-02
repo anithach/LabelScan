@@ -92,6 +92,7 @@ tr.shown td.details-control {
 }
 .full-width {
     width: 100%;
+    height: 100%;
 }
 
 /* .carousel-caption {

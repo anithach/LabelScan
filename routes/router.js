@@ -17,9 +17,9 @@ module.exports = function(app, passport)
 	app.get('/', function(req, res) 
 	{
 		if(req.user){
-			res.render('home.jade', { title: 'Trace IT' });
+			res.render('home.jade', { title: 'TraceIT' });
 		}else{
-			res.render('default.jade', { title: 'Trace IT' });
+			res.render('default.jade', { title: 'TraceIT' });
 		}
 	});
 	
@@ -62,7 +62,7 @@ module.exports = function(app, passport)
 
 	app.get('/login',isUserNotLoggedIn, function(req, res) 
 	{
-		res.render('login.jade', { title: 'Trace IT' });
+		res.render('login.jade', { title: 'TraceIT' });
 	});
 	
 	app.post('/login', function(req, res, next) {
@@ -183,8 +183,8 @@ module.exports = function(app, passport)
 			       				  mailOpts = {
 			       				      from: 'noreplytraceit@gmail.com', //grab form data from the request body object
 			       				      to: req.body.emailaddress,
-			       				      subject: 'Welcome to Trace IT',
-			       				        text: 'Welcome to our Trace IT.\n\n' +
+			       				      subject: 'Welcome to TraceIT',
+			       				        text: 'Welcome to our TraceIT.\n\n' +
 			       				          'Please click on the following link, or paste this into your browser to complete your registration with us:\n\n' +
 			       				          'http://' + req.headers.host + '/login/' + token + '\n\n'
 			       				  };
@@ -245,7 +245,7 @@ module.exports = function(app, passport)
 				  mailOpts = {
 				      from: 'noreplytraceit@gmail.com', //grab form data from the request body object
 				      to: user.emailaddress,
-				      subject: 'Your Trace IT Account is Activated',
+				      subject: 'Your TraceIT Account is Activated',
 				        text: 'Hello,\n\n' +
 				          'This is a confirmation that your account ' + user.emailaddress + ' is sucesfully activated.\n'				  };
 				  smtpTrans.sendMail(mailOpts, function(err) {
@@ -296,7 +296,7 @@ module.exports = function(app, passport)
 	
 	app.get('/forgot', function(req, res) 
 			{
-				res.render('forgot.jade', { title: 'Trace IT' });
+				res.render('forgot.jade', { title: 'TraceIT' });
 			});	
 
 	
