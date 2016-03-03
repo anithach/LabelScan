@@ -32,6 +32,7 @@ input, textarea {
   ul.nav li.dropdown:hover > ul.dropdown-menu 
   {
     display: block;
+    color:black;
   }
 }
 
@@ -118,7 +119,13 @@ tr.shown td.details-control {
     max-width: 550px;
     left: 30%;
     /*top: auto;*/
-  top: 20%;
+  top: 15%;
   transform: translateY(-50%);
   bottom: initial;
 }
+
+.float-right{
+	float:right;
+}
+
+

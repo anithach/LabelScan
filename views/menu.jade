@@ -15,7 +15,8 @@ html
 		script( src='////cdn.datatables.net/responsive/2.0.1/js/dataTables.responsive.min.js' )
 		script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
 		script( src='/bower_components/jquery-ui/jquery-ui.js' )
-		script( src="bower_components/jquery-validation/dist/jquery.validate.min.js")					
+		script( src="bower_components/jquery-validation/dist/jquery.validate.min.js")
+		script( src="js/menu.js")					
 	body
 		div.container
 			if loggedIn
@@ -27,14 +28,10 @@ html
 					+nav_item( "/logout" ) Logout
 					+nav_item_logo("/myinbox", "cust_nav_logo xhidden-xs")
 			else
-				+nav("", "dropdown_menu", "navbar-default navbar-fixed-top")
-					+nav_item( "/" ) TraceIT					
+				+nav("TraceiT", "dropdown_menu", "navbar-default navbar-fixed-top pull-right")
+					+nav_item( "/" ) Home					
 					+nav_item( "/about" ) About
-					+nav_item( "/login" ) Login					
+					+nav_item( "/login" ,"navbar-right container-fluid") Login					
 					+nav_item( "/contact" ) Contact
 					+nav_item( "/contact" )
-						div(style="outline: 1px solid white; padding: 5px 5px 5px 5px;")	832-872-2348
-
-					
-					br
-					br																										
+						div(style="outline: 1px solid white; padding: 5px 5px 5px 5px;")	832-872-2348																																		
