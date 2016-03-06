@@ -7,36 +7,38 @@ html
 		meta(name='viewport', content='width=device-width, initial-scale=1.0')
 	body
 		br
-		br		
-		#myCarousel.carousel.slide(data-ride='carousel')
-			ol.carousel-indicators
-				li.active(data-target='#myCarousel', data-slide-to='0')															
-				li(data-target='#myCarousel', data-slide-to='1')			
-				li(data-target='#myCarousel', data-slide-to='2')			
-			// Wrapper for slides
-			.carousel-inner(role='listbox')
-				.item.active
-					img.img-responsive.full-width(src='img/fresh_food.jpg', alt='SeaFood')
-					div.carousel-caption
-						div.full-width
-							h1 TraceIT - Farm to Fork Tracing						
-				.item
-					img.img-responsive.full-width(src='img/farm_barn.jpg', alt='Shrimp')
-					div.carousel-caption(style="left: 60%;")
-						div.full-width
-							h1 TraceIT
-							h4 Uncovering farm to fork supply chain transparency									
-				.item
-					img.img-responsive.full-width(src='img/fish_farm.jpg', alt='Shrimp')
-					div.carousel-caption(style="left: 60%;")
-						div.full-width
-							h1 TraceIT
-							h4 Improving Food Safety and Traceability
-				// Left and right controls
-				a.left.carousel-control(href='#myCarousel', role='button', data-slide='prev')
-					span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
-					span.sr-only Previous
-				a.right.carousel-control(href='#myCarousel', role='button', data-slide='next')
-					span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
-					span.sr-only Next																						
-																																																
+		div.container
+			div.row
+				div.col-md-12.col-sm-12.col-xs-12		
+					#myCarousel.carousel.slide(data-ride='carousel')
+						ol.carousel-indicators
+							li.active(data-target='#myCarousel', data-slide-to='0')															
+							li(data-target='#myCarousel', data-slide-to='1')			
+							li(data-target='#myCarousel', data-slide-to='2')			
+						// Wrapper for slides
+						.carousel-inner(role='listbox')
+							.item.active
+								img.img-responsive.full-width(src='img/fresh_food.jpg', alt='SeaFood')
+								div.carousel-caption
+									div.full-width
+										h1 TraceIT - Farm to Fork Tracing						
+							.item
+								img.img-responsive.full-width(src='img/farm_barn.jpg', alt='Shrimp')
+								div.carousel-caption(style="left: 60%;")
+									div.full-width
+										h1 TraceIT
+										h4 Uncovering farm to fork supply chain transparency									
+							.item
+								img.img-responsive.full-width(src='img/fish_farm.jpg', alt='Shrimp')
+								div.carousel-caption(style="left: 60%;")
+									div.full-width
+										h1 TraceIT
+										h4 Improving Food Safety and Traceability
+							// Left and right controls
+							a.left.carousel-control(href='#myCarousel', role='button', data-slide='prev')
+								span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+								span.sr-only Previous
+							a.right.carousel-control(href='#myCarousel', role='button', data-slide='next')
+								span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+								span.sr-only Next																						
+include footer																																																

@@ -20,18 +20,51 @@ html
 	body
 		div.container
 			if loggedIn
-				+nav("TraceiT","dropdown_menu", "navbar-default navbar-fixed-top")
-					+nav_item( "/home" ) Home
-					+nav_item( "/profile" ) PO Profile
-					+nav_item( "/createpo" ) Create PO 
-					+nav_item( "/contact" ) Help
-					+nav_item( "/logout" ) Logout
-					+nav_item_logo("/myinbox", "cust_nav_logo xhidden-xs")
+				nav.navbar.navbar-default.navbar-fixed-top
+					div.container-fluid
+						div.navbar-header
+							button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#navbar-collapse-id" aria-expanded="false")
+								span.sr-only Toggle navigation
+								span.icon-bar
+								span.icon-bar
+								span.icon-bar
+								span.icon-bar
+							a(href='/').navbar-brand TaceIT
+						div.collapse.navbar-collapse
+							ul.nav.navbar-nav#nav
+								li
+									a(href='/') Home							
+								li
+									a(href='/profile') PO Profile
+								li
+									a(href='/createpo') Create PO 
+								li
+									a(href='/contact') Help
+								li
+									a(href='/logout') Logout
 			else
-				+nav("TraceiT", "dropdown_menu", "navbar-default navbar-fixed-top pull-right")
-					+nav_item( "/" ) Home					
-					+nav_item( "/about" ) About
-					+nav_item( "/login" ,"navbar-right container-fluid") Login					
-					+nav_item( "/contact" ) Contact
-					+nav_item( "/contact" )
-						div(style="outline: 1px solid white; padding: 5px 5px 5px 5px;")	832-872-2348																																		
+				nav.navbar.navbar-default.navbar-fixed-top
+					div.container-fluid
+						div.navbar-header
+							button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#navbar-collapse-id" aria-expanded="false")
+								span.sr-only Toggle navigation
+								span.icon-bar
+								span.icon-bar
+								span.icon-bar
+								span.icon-bar
+							a(href='/').navbar-brand TaceIT
+						div.collapse.navbar-collapse#navbar-collapse-id
+							ul.nav.navbar-nav#nav
+								li
+									a(href='/') Home							
+								li
+									a(href='/about') About
+								li
+									a(href='/contact') Contact Us
+							ul.nav.navbar-nav.navbar-right
+								li
+									a(href='/login')
+										div.menu-border Login																									
+br						
+					
+																															

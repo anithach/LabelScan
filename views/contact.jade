@@ -16,18 +16,32 @@ html
 					div.panel-heading
 						h3.panel-title Contact us
 					div.panel-body											
-						div.col							
+						div.col
+							br
 							div#errorContainer
 							ul							
-							div#msg_info  #{msg}										
-						div.col
+							div#msg_info  #{msg}
+							br
+							div.form-group		
+								div.row
+									div.col-sm-3
+									div.col-sm-8
+										div.col-sm-8.rounded
+											h5.col-sm-12 Call us @ 1-832-TRACEIT | 1-832-872-2348
+											br
+											h5.col-sm-12 Email: info@traceit.io	
+									div.col-sm-1																																	
+							div.form-group
+								div.row
+									div.col-sm-12
+										h3 Leave us a message																					
 							div.form-group
 								div.row
 									div.col-sm-6
-										label.col-sm-4 Name
+										label.col-sm-4 Full Name
 										div.row
 											div.col-sm-8 
-												input.form-control(type='text', name="firstname", placeholder='Enter First Name')
+												input.form-control(type='text', name="firstname", placeholder='Enter First Name')																					
 							div.form-group
 								div.row
 									div.col-sm-6
@@ -41,13 +55,13 @@ html
 										label.col-sm-4  Message
 										div.row
 											div.col-sm-12
-												textarea.form-control(rows = '5',cols = '40', name ="message", placeholder='Enter Message' ) 											
+												textarea.form-control(rows = '5',cols = '40', name ="message" ) 											
 												
 							div.form-group		
 								div.row
 									div.col-sm-8
 										div.col-sm-2
-											button.btn.btn-primary(type='submit') Send Message		
+											button.btn.btn-primary(type='submit') Send Message															
 			
-include footer			
+		
 					

@@ -24,8 +24,8 @@
 		                    subject: "required"
 		                },
 		                messages: {
-		                    firstname: "Please enter your First Name.",		                    		                    
-		                    emailaddress: "Please enter a valid email address.",
+		                    firstname: "Please enter your Full Name.",		                    		                    
+		                    emailaddress: "Please enter a valid Email Address.",
 		                    subject: "Please enter your Subject."
 		                },
 		                errorContainer: $('#errorContainer'),
