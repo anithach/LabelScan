@@ -16,7 +16,7 @@
 			                    }
 			                },		                	
 		            		rules: {
-		                    firstname: "required",		                   
+		                    fullname: "required",		                   
 		                    emailaddress: {
 		                        required: true,
 		                        email: true
@@ -24,7 +24,7 @@
 		                    subject: "required"
 		                },
 		                messages: {
-		                    firstname: "Please enter your Full Name.",		                    		                    
+		                    fullname: "Please enter your Full Name.",		                    		                    
 		                    emailaddress: "Please enter a valid Email Address.",
 		                    subject: "Please enter your Subject."
 		                },

@@ -33,7 +33,53 @@ module.exports = function(app, passport)
 				res.render('contact.jade');
 	});	
 	
-	app.post('/contact', function(req, res) 
+	
+	app.post('/contact', function(req, res) {
+		  async.waterfall([
+		    function(done) {
+				var Contact = require('../models/contact');
+				var newContact = new Contact();
+				newContact.name = req.body.fullname;
+				newContact.emailaddress = req.body.emailaddress;
+				newContact.subject = req.body.subject;
+				newContact.message = req.body.message;
+				newContact.submit_dt = Date.now();
+				newContact.save(function(err) {
+		        	 done(err);
+		        });				
+		    },
+		    function(done) {
+				var mailOpts, smtpTrans;
+				smtpTrans = nodemailer.createTransport('SMTP', {
+				      service: 'gmail',
+				      auth: {
+				          user: "noreplytraceit@gmail.com",
+				          pass: "Mailer4comm" 
+				      }
+				  });				
+				  //Mail options
+				  mailOpts = {
+				      from: 'noreplytraceit@gmail.com', //grab form data from the request body object
+				      to: 'info@traceit.io',
+				      subject: 'Message From '+req.body.fullname,
+				        text: 'User name - '+req.body.fullname+'\n\n' +
+				              'Email Address - '+req.body.emailaddress+'\n\n' +
+				              'Message - '+req.body.message+'\n\n'
+				    };
+				  smtpTrans.sendMail(mailOpts, function(err) {
+				      //Email sent
+				      if (!err) {
+				    	  res.render('contact', { title: 'Thanks', err: false,msg: 'Thanks for contacting us, we will get back to you shortly!', page: 'contact' });
+				      }
+				      else {
+				    	  res.render('contact', { title: 'Thanks', err: false,msg: 'We are experencing some technical issues, Please try to contact us again!', page: 'contact' });
+				      }					  					 
+		      });
+		    }
+		  ]);
+		});		
+	
+/*	app.post('/contact', function(req, res) 
 	{
 		var Contact = require('../models/contact');
 		var newContact = new Contact();
@@ -53,7 +99,7 @@ module.exports = function(app, passport)
                     	}
                 });
 		 
-	});	
+	});	*/
 	
 	app.get('/about', function(req, res) 
 			{
