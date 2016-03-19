@@ -20,6 +20,10 @@ $(document).ready(function() {
             datatype: 'json',
             dataSrc: ""
         },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
         "order": [[ 2, "desc" ]],
         "columns": [
             {

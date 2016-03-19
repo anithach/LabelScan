@@ -126,38 +126,45 @@ module.exports = function(app, passport)
 		});
 		
 	app.post('/createpo', isLoggedIn, function(req, res) {	
-		var PO = require('../models/porder');
-		var qrocdeUniqId = uuid.v1();
-		var newPO = new PO();
-		newPO.ponum = req.body.ponum;
-		newPO.bqcode = req.body.ponum+Date.now();
-		newPO.itemnum = req.body.itemnum;
-		newPO.prodcode = req.body.prodcode;
-		newPO.fdaregno  = req.body.fdaregno;
-		newPO.traceid = req.body.traceid;
-		newPO.productwgt = req.body.productwgt;
-		newPO.producttype = req.body.producttype;
-		newPO.packing = req.body.packing;
-		newPO.corigin = req.body.corigin;
-		newPO.company = req.body.company;
-		newPO.processor = req.body.processor;
-		newPO.submit_date = Date.now();
-		newPO.proddate = req.body.proddate;	
-		newPO.username = req.user.emailaddress;	
-		var bqcode = newPO.bqcode;
+	      User.findOne({username:req.user.emailaddress}, function(err, user) {
+		        if (!user) {				         
+		          return res.render('login', { title: 'Test email- Contact', msg: 'Password reset token is invalid or has expired.', err: true, page: 'login' });
+		        }
+				var PO = require('../models/porder');
+				//var qrocdeUniqId = uuid.v1();
+				var newPO = new PO();
+				newPO.ponum = req.body.ponum;
+				newPO.bqcode = req.body.ponum+Date.now();
+				newPO.itemnum = req.body.itemnum;
+				newPO.prodcode = req.body.prodcode;
+				newPO.fdaregno  = req.body.fdaregno;
+				newPO.traceid = req.body.traceid;
+				newPO.productwgt = req.body.productwgt;
+				newPO.producttype = req.body.producttype;
+				newPO.packing = req.body.packing;
+				newPO.corigin = req.body.corigin;
+				newPO.company = req.body.company;
+				newPO.processor = req.body.processor;
+				newPO.submit_date = Date.now();
+				newPO.proddate = req.body.proddate;	
+				newPO.username = req.user.emailaddress;
+				newPO.user_id = user._id;
+				var bqcode = newPO.bqcode;
 
-		newPO.save(function(err) 
-				{
-                    if (err)
-                    	{
-                        	console.log(err); 
-                        	res.render('createpo', { title: 'error', err: false,msg: 'Error saving PO, please contact Help Desk.'+err, page: 'createpo' }); 
-                    	}else{
-                    		console.log("bqcode  -  "+newPO.bqcode);
-                    		res.render('qrcode', { title: 'QR Code',bqcode:bqcode,user:req.user, err: true, page: 'qrcode' });
-                    		//res.render('qrcode', { title: 'QR COde', bqcode:bqcode,err: false, page: 'qrcode' }); 
-                    	}
-                });
+				newPO.save(function(err) 
+						{
+		                    if (err)
+		                    	{
+		                        	console.log(err); 
+		                        	res.render('createpo', { title: 'error', err: false,msg: 'Error saving PO, please contact Help Desk.'+err, page: 'createpo' }); 
+		                    	}else{
+		                    		console.log("bqcode  -  "+newPO.bqcode);
+		                    		res.render('qrcode', { title: 'QR Code',bqcode:bqcode,user:req.user, err: true, page: 'qrcode' });
+		                    		//res.render('qrcode', { title: 'QR COde', bqcode:bqcode,err: false, page: 'qrcode' }); 
+		                    	}
+		                });
+		      });
+
 	});
 	
 		
@@ -316,19 +323,24 @@ module.exports = function(app, passport)
 			{	
 		res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 				var PO = require('../models/porder');
-				PO.find({username:req.user.emailaddress}, function(err, result) 
-						 {
-						      if (!err) 
-						      {
-								  res.setHeader('Content-Type', 'application/result');
-								  res.end(JSON.stringify(result));
-						    	 // res.render('profile.jade', { user : req.user, podocs: result, poscount: PO.find({}).count()});
-						      } 
-						      else 
-						      {
-						    	res.render('profile.jade', { user : req.user, msg: 'Error occured while loading the page.'});
-						      }
-						 });
+			      User.findOne({username:req.user.emailaddress}, function(err, user) {
+				        if (!user) {				         
+				          return res.render('login', { title: 'Test email- Contact', msg: 'Password reset token is invalid or has expired.', err: true, page: 'login' });
+				        }
+						PO.find({user_id:user._id}, function(err, result) 
+								 {
+								      if (!err) 
+								      {
+										  res.setHeader('Content-Type', 'application/result');
+										  res.end(JSON.stringify(result));
+								    	 // res.render('profile.jade', { user : req.user, podocs: result, poscount: PO.find({}).count()});
+								      } 
+								      else 
+								      {
+								    	res.render('profile.jade', { user : req.user, msg: 'Error occured while loading the page.'});
+								      }
+								 });
+				      });
 				
 				//console.log("PO Number " + mypos.ponumber);
 			});

@@ -20,7 +20,11 @@ var poSchema = new Schema(
 			processor : String,
 			submit_date : Date,
 			proddate : Date,
-			username : String
+			username : String,
+		    user_id: {
+		        type: Schema.Types.ObjectId,
+		        ref: 'User'
+		    }
 		});
 
 poSchema.set('collection', 'PURCHASEORDERS');
